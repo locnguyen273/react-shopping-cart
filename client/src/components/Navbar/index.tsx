@@ -29,6 +29,8 @@ const Left = styled.div`
 `;
 const Center = styled.div`
   flex: 1;
+  justify-content: center;
+  display: flex;
   ${mobile({
     display: "none",
   })}
@@ -62,6 +64,7 @@ const SearchContainer = styled.div`
   border: 0.5px solid lightgray;
   display: flex;
   align-items: center;
+  max-width: 465px;
 `;
 const Input = styled.input`
   border: none;
