@@ -10,8 +10,10 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
 const Container = styled.div`
   display: flex;
+  padding: 1rem 3rem;
   ${mobile({
     flexDirection: "column",
+    padding: "1rem"
   })}
 `;
 
