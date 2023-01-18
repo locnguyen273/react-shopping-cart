@@ -1,0 +1,19 @@
+.slider {
+  margin: 2.5rem 0 1rem;
+  position: relative;
+  &__image {
+    width: 100%;
+    max-height: 528px;
+  }
+}
+.slick-list {
+  z-index: -1;
+}
+@media screen and (max-width: 425px) {
+  .slider {
+    margin: 5.5rem 0 1rem;
+  }
+  .slick-dots {
+    bottom: 5px;
+  }
+}
