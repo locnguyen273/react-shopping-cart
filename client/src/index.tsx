@@ -11,6 +11,10 @@ import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import Product from "./pages/Product";
 import Detail from "./pages/Detail";
+import News from "./pages/News";
+import StoreSystem from "./pages/StoreSystem";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -25,6 +29,10 @@ root.render(
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/product" element={<Product />}></Route>
           <Route path="/product/:id" element={<Detail />}></Route>
+          <Route path="/news" element={<News />}></Route>
+          <Route path="/he-thong-cua-hang" element={<StoreSystem />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

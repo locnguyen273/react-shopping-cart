@@ -79,4 +79,19 @@ export const popularProducts = [
     id: 8,
     img: "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
   },
-]
+];
+
+export const menuPages = [
+  { label: "Trang Chủ", pathName: "/" },
+  { label: "Sản Phẩm", pathName: "/product" },
+  { label: "Tin Tức", pathName: "/news" },
+  { label: "Hệ Thống Cửa Hàng", pathName: "/he-thong-cua-hang" },
+];
+export const loggedInMenu = [
+  { label: "Tài khoản của tôi", pathName: "/profile" },
+  { label: "Đăng xuất", pathName: "/register" },
+];
+export const noLoggedInMenu = [
+  { label: "Đăng nhập", pathName: "/login" },
+  { label: "Đăng ký", pathName: "/register" },
+];
