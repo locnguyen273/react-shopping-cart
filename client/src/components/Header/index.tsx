@@ -1,21 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import "./style.scss";
+import { menuPages, loggedInMenu, noLoggedInMenu } from "../../assets/data";
+import useViewport from "../../hooks/useViewPort";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Link, useLocation } from "react-router-dom";
-import "./style.scss";
-import { menuPages, loggedInMenu, noLoggedInMenu } from "../../assets/data";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import Drawer from "@mui/material/Drawer";
+import Box from "@mui/material/Box";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Header = () => {
   const logged = false;
   const location = useLocation();
   const [active, setActive] = useState<string>("");
+  const [openDrawer, setOpenDrawer] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const viewPort = useViewport();
+  const isMobile = viewPort.width < 1024;
 
   useEffect(() => {
     setActive(location.pathname);
@@ -28,44 +35,131 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-  return (
-    <div className="header">
-      <Link to="/" className="header__left">
-        <Typography variant="h2">Bamboo Shop</Typography>
-      </Link>
-      <div className="header__center">
+  const menuCenter = () => {
+    return (
+      <>
         {menuPages.length > 0 &&
           menuPages.map((item, index) => {
+            if (!isMobile) {
+              return (
+                <Link
+                  to={item.pathName}
+                  key={index}
+                  onClick={() => setActive(item.pathName)}
+                  className={`header__center--item ${
+                    active === item.pathName && "active"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            } else {
+              return (
+                <MenuItem key={index}>
+                  <Link
+                    to={item.pathName}
+                    onClick={() => setActive(item.pathName)}
+                    className={`${active === item.pathName && "active"}`}
+                  >
+                    {item.label}
+                  </Link>
+                </MenuItem>
+              );
+            }
+          })}
+      </>
+    );
+  };
+
+  const menuAuth = () => {
+    return (
+      <>
+        {logged ?
+          loggedInMenu.map((item, index) => {
             return (
-              <Link
-                to={item.pathName}
-                key={index}
-                onClick={() => setActive(item.pathName)}
-                className={`header__center--item ${
-                  active === item.pathName && "active"
-                }`}
-              >
-                {item.label}
-              </Link>
+              <MenuItem key={index}>
+                <Link
+                  to={item.pathName}
+                  onClick={() => setActive(item.pathName)}
+                >
+                  {item.label}
+                </Link>
+              </MenuItem>
+            );
+          }) : noLoggedInMenu.map((item, index) => {
+            return (
+              <MenuItem key={index}>
+                <Link
+                  to={item.pathName}
+                  onClick={() => setActive(item.pathName)}
+                  className={`${active === item.pathName && "active"}`}
+                >
+                  {item.label}
+                </Link>
+              </MenuItem>
             );
           })}
-      </div>
-      <div className="header__right">
+      </>
+    );
+  };
+
+  return (
+    <div className={isMobile ? "header-mobile" : "header"}>
+      {isMobile && (
+        <div>
+          <Button
+            onClick={() => setOpenDrawer(true)}
+            className="header-mobile__menu"
+          >
+            <MenuIcon />
+          </Button>
+          <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
+            <Box
+              width={300}
+              role="presentation"
+              onClick={() => setOpenDrawer(false)}
+              onKeyDown={() => setOpenDrawer(false)}
+            >
+              {menuCenter()}
+              {menuAuth()}
+            </Box>
+          </Drawer>
+        </div>
+      )}
+      <Link
+        to="/"
+        className={isMobile ? "header-mobile__left" : "header__left"}
+      >
+        <Typography variant="h2">Bamboo Shop</Typography>
+      </Link>
+      {!isMobile && <div className="header__center">{menuCenter()}</div>}
+      <div className={isMobile ? "header-mobile__right" : "header__right"}>
         <Button
           id="basic-button"
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
+          className={
+            isMobile ? "header-mobile__right--user" : "header__right--user"
+          }
         >
           <AccountCircleRoundedIcon style={{ fontSize: "2.5rem" }} />
         </Button>
-        <Link to="/cart" className="header__right__cart">
-          <ShoppingCartOutlinedIcon />
-          <div className="header__right__cart--info">
-            <p>Giỏ hàng</p>
-            <p>( 0 Sản phẩm )</p>
-          </div>
+        <Link
+          to="/cart"
+          className={
+            isMobile ? "header-mobile__right__cart" : "header__right__cart"
+          }
+        >
+          <ShoppingCartOutlinedIcon
+            className={
+              isMobile
+                ? "header-mobile__right__cart--icon"
+                : "header__right__cart--icon"
+            }
+          />
+          <p>0</p>
         </Link>
         <Menu
           id="basic-menu"
@@ -83,7 +177,11 @@ const Header = () => {
                   <MenuItem key={index}>
                     <Link
                       to={item.pathName}
-                      className="header__right__menu--item"
+                      className={
+                        isMobile
+                          ? "header-mobile__right__menu--item"
+                          : "header__right__menu--item"
+                      }
                     >
                       {item.label}
                     </Link>
@@ -96,7 +194,11 @@ const Header = () => {
                   <MenuItem key={index}>
                     <Link
                       to={item.pathName}
-                      className="header__right__menu--item"
+                      className={
+                        isMobile
+                          ? "header-mobile__right__menu--item"
+                          : "header__right__menu--item"
+                      }
                     >
                       {item.label}
                     </Link>
