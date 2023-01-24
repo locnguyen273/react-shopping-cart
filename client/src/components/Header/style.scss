@@ -1,3 +1,48 @@
+.header-mobile {
+  display: flex;
+  height: 3rem;
+  padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 0px 10px 0px #858282;
+  &__menu {
+    color: #000 !important;
+    font-size: 2rem;
+    width: auto;
+  }
+  &__left {
+    & h2 {
+      font-size: 1.5rem;
+      color: #000;
+      font-weight: 600;
+    }
+  }
+  &__right {
+    &--user {
+      display: none !important;
+    }
+    &__cart {
+      width: 50px;
+      height: 50px;
+      display: block;
+      position: relative;
+      color: #000;
+      &--icon {
+        position: absolute;
+        font-size: 32px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      & p {
+        position: absolute;
+        top: -35%;
+        right: 0%;
+        font-size: 18px;
+      }
+    }
+  }
+}
 .header {
   display: flex;
   justify-content: space-between;
@@ -43,7 +88,7 @@
         left: 50%;
         border-bottom: 3px solid #000;
         transform: translateX(-50%);
-        transition: width .3s linear;
+        transition: width 0.3s linear;
       }
       &:hover:after {
         width: 100%;
@@ -63,19 +108,23 @@
       color: #c4c4c4;
     }
     &__cart {
-      text-decoration: none;
-      display: flex;
-      justify-content: space-between;
-      height: 100%;
-      align-items: center;
+      width: 50px;
+      height: 50px;
+      display: block;
+      position: relative;
       color: #000;
-      &--info {
-        & p {
-          margin: 0;
-          &:nth-child(1) {
-            text-align: center;
-          }
-        }
+      &--icon {
+        position: absolute;
+        font-size: 32px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      & p {
+        position: absolute;
+        top: -35%;
+        right: 0%;
+        font-size: 18px;
       }
     }
     &__menu {
@@ -88,7 +137,7 @@
   }
 }
 
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1024px) {
   .header {
     &__left {
       width: 15vw;

@@ -4,3 +4,10 @@ export interface CategoryType {
   title: string;
   cat: string;
 }
+
+export interface SliderType {
+  id: number,
+  img: string,
+  imgMobile: string,
+  title: string
+}

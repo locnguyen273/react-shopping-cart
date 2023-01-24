@@ -1,5 +1,18 @@
 .carousel {
   max-width: 95vw;
   margin: auto;
-  background-color: aqua;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  &__slider {
+    max-height: 500px;
+    &--image {
+      max-height: 510px;
+      width: 100%;
+      object-fit: fill;
+    }
+  }
+  .slick-list {
+    position: relative;
+    z-index: -1;
+  }
 }
