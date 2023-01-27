@@ -1,0 +1,17 @@
+.news-latest {
+  margin: 2.5rem 0 0 0;
+  &__title {
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 2rem !important;
+  }
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 80vw;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
