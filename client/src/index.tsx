@@ -15,6 +15,7 @@ import News from "./pages/News";
 import StoreSystem from "./pages/StoreSystem";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import AuthTemplate from "./template/AuthTemplate";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -31,8 +32,10 @@ root.render(
           <Route path="/product/:id" element={<Detail />}></Route>
           <Route path="/news" element={<News />}></Route>
           <Route path="/he-thong-cua-hang" element={<StoreSystem />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
+        </Route>
+        <Route path="" element={<AuthTemplate />}>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
