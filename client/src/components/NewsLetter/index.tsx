@@ -3,7 +3,7 @@ import facebook from "../../assets/images/facebook.svg";
 import google from "../../assets/images/google-plus-logo.svg";
 import instagram from "../../assets/images/instagram.svg";
 import twitter from "../../assets/images/twitter.svg";
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send";
 import "./style.scss";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
@@ -57,6 +57,9 @@ const NewsLetter = () => {
           <Typography variant="h5" className="news-letter__title">
             ĐĂNG KÝ NHẬN TIN TỪ CHÚNG TÔI
           </Typography>
+          <p>
+            Đăng ký nhận thông tin và nhận nhiều ưu đãi từ Bamboo Shop
+          </p>
           <Paper
             component="form"
             sx={{
