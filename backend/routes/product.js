@@ -11,7 +11,7 @@ const router = require("express").Router();
 
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
   const newProduct = new Product(req.body);
-
+  console.log(newProduct);
   try {
     const savedProduct = await newProduct.save();
     res.status(200).json(savedProduct);

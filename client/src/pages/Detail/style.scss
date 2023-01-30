@@ -1,0 +1,94 @@
+.detail {
+  display: flex;
+  max-width: 80vw;
+  background: aliceblue;
+  margin: 3rem auto;
+  width: 100%;
+  &__left {
+    max-width: 30vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    &__list {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      &--item {
+        display: flex;
+        flex-direction: column;
+        max-width: 100px;
+        max-height: 100px;
+        margin: 0 1rem 0 0;
+        cursor: pointer;
+      }
+    }
+    &--item {
+      width: 450px;
+      height: 450px;
+      margin: 0 0 1rem 0;
+    }
+  }
+  & .flex-active {
+    border-bottom: 5px solid red;
+  }
+  &__right {
+    max-width: 50vw;
+    width: 100%;
+    padding: 1rem;
+    &--title {
+      font-size: 1.9rem !important;
+      margin: 0 0 0.5rem 0 !important;
+    }
+    &--price {
+      font-weight: 600 !important;
+      font-size: 1.7rem !important;
+    }
+    &__group {
+      border-top: 1px solid lightgray;
+      margin: 1rem 0 0;
+      padding: 1.5rem 0;
+      &--add,
+      &--view {
+        color: #000 !important;
+        border: 1px solid #000 !important;
+        padding: 10px 25px !important;
+        border-radius: 2rem !important;
+        margin: 0 1rem 0 0 !important;
+      }
+      &--shop-now {
+        background: #ff4b52 !important;
+        color: #fff !important;
+        padding: 10px 40px !important;
+        border-radius: 2rem !important;
+        margin: 0 1rem 0 0 !important;
+      }
+    }
+    &__intro {
+      font-size: 22px !important;
+      font-weight: 600 !important;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid lightgrey;
+      border-bottom: 1px solid lightgrey;
+      padding: 1rem 0;
+      &--icon {
+        width: 40px;
+        height: 40px;
+        background: #38b38a;
+        color: #fff;
+        display: block;
+        line-height: 50px;
+        text-align: center;
+        border-radius: 50%;
+        margin: 0 0 0 10px;
+      }
+      &--phone {
+        font-size: 2rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin: 0 0 0 10px;
+      }
+    }
+  }
+}
