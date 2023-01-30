@@ -35,3 +35,69 @@
     overflow-x: auto;
   }
 }
+.productItem {
+  max-height: 450px;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease 0s;
+  &:hover {
+    & .productItem__overlay {
+      z-index: 1;
+    }
+  }
+  &__image {
+    width: 100%;
+    height: 270px;
+  }
+  &__info {
+    min-height: 100px;
+    height: auto;
+    &--name {
+      color: #404040;
+      font-size: 1.2rem !important;
+      margin: 0.5rem 0 1rem !important;
+    }
+    &--price {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+  }
+  &__overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    z-index: -1;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: #7a7a7abd;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    -webkit-transition: all 0.5s ease 0s;
+    &:hover {
+      background: #7a7a7a;
+    }
+  }
+  &__add {
+    width: 100%;
+    border: none;
+    height: 50px;
+    font-size: 16px;
+    text-transform: capitalize;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    background-size: 250% auto;
+    background-image: linear-gradient(to left, #227df9 0%, #7462f9 25%, #df3ef8 50%, #7462f9 75%, #227df9 100%);
+    transition: all 0.5s ease;
+    transition-timing-function: ease, ease;
+
+    &:hover {
+      background-position: right center;
+    }
+  }
+}
