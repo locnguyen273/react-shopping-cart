@@ -13,6 +13,8 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/configStore";
 
 const Header = () => {
   const logged = false;
@@ -102,6 +104,14 @@ const Header = () => {
       </>
     );
   };
+  const cart = useSelector((state : RootState) => state.cartReducer.cart)
+  const getTotalQuantity = () => {
+    let total = 0;
+    cart.forEach((item : any) => {
+      total += item.quantity;
+    })
+    return total;
+  }
 
   return (
     <div className={isMobile ? "header-mobile" : "header"}>
@@ -159,7 +169,7 @@ const Header = () => {
                 : "header__right__cart--icon"
             }
           />
-          <p>0</p>
+          <p>{getTotalQuantity() || 0}</p>
         </Link>
         <Menu
           id="basic-menu"

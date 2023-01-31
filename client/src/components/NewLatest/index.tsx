@@ -12,7 +12,7 @@ const NewsLatest = () => {
         tin tức mới nhất
       </Typography>
       <div className="news-latest__list">
-        <Card sx={{ maxWidth: 360 }}>
+        <Card sx={{ maxWidth: 450 }}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -21,7 +21,7 @@ const NewsLatest = () => {
               alt="green iguana"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant="h5" component="div" className="news-latest__list--title">
                 THÔNG BÁO MỞ CỬA TRỞ LẠI TOÀN CHI NHÁNH TẠI SÀI GÒN - SALE UP
                 50%
               </Typography>
@@ -37,7 +37,7 @@ const NewsLatest = () => {
             </Button>
           </CardActions>
         </Card>
-        <Card sx={{ maxWidth: 360 }}>
+        <Card sx={{ maxWidth: 450 }}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -46,7 +46,7 @@ const NewsLatest = () => {
               alt="green iguana"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant="h5" component="div" className="news-latest__list--title">
                 CÁCH BẢO QUẢN QUẦN JEANS MỚI MUA
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -61,7 +61,7 @@ const NewsLatest = () => {
             </Button>
           </CardActions>
         </Card>
-        <Card sx={{ maxWidth: 360 }}>
+        <Card sx={{ maxWidth: 450 }}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -70,7 +70,7 @@ const NewsLatest = () => {
               alt="green iguana"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant="h5" component="div" className="news-latest__list--title">
                 Bamboo Shop ĐÀ NẴNG - THÔNG BÁO HOẠT ĐỘNG TRỞ LẠI TỪ 06/09/2020
               </Typography>
               <Typography variant="body2" color="text.secondary">
