@@ -13,5 +13,18 @@
     margin: auto;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    @media screen and (max-width:425px) {
+      grid-template-columns: repeat(1, 1fr);
+      max-width: 100%;
+    }
+    @media screen and (max-width:1024px) {
+      max-width: 80vw;
+      &--title {
+        font-size: 1.1rem !important;
+      }
+    }
+    @media screen and (min-width:1441px) and (max-width:2560px) {
+      max-width: 65vw;
+    }
   }
 }

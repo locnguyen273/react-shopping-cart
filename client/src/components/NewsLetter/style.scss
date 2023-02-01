@@ -1,10 +1,31 @@
 .news-letter {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  padding: 3rem 8rem;
   background: #000;
-  color: #fff;
-  gap: 1rem;
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 3rem 0;
+    width: 80vw;
+    color: #fff;
+    gap: 1rem;
+    margin: auto;
+    @media screen and (max-width: 1440px) {
+      max-width: 80vw;
+    }
+    @media screen and (min-width: 1441px) and (max-width: 2560px) {
+      max-width: 65vw;
+      padding: 4rem 0;
+    }
+  }
+  &__left {
+    &--item {
+      p {
+        font-size: 16px;
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
   &__right {
     &__list-icon {
       display: flex;
@@ -18,9 +39,43 @@
         align-items: center;
         justify-content: center;
         margin: 1rem 1rem 1rem 0;
-        & img {
+        p {
+          font-size: 16px;
+        }
+        img {
           width: 20px;
           height: 20px;
+        }
+      }
+    }
+    &__form {
+      max-width: 500px;
+      position: relative;
+      &--input {
+        height: 30px;
+        max-width: 430px;
+        font-size: 1rem;
+        padding: 5px 10px;
+        width: 100%;
+        border: none;
+        &:focus {
+          outline: none;
+        }
+      }
+      &--subscribe {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 50px;
+        border: none;
+        background: #fff;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.5s ease-in-out;
+        &:hover {
+          background-color: #000;
+          color: #fff;
         }
       }
     }
