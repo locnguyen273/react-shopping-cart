@@ -1,7 +1,7 @@
 .carousel {
   max-width: 95vw;
   margin: auto;
-  margin-top: 2rem;
+  margin-top: 7rem;
   margin-bottom: 2rem;
   &__slider {
     max-height: 500px;
@@ -14,5 +14,16 @@
   .slick-list {
     position: relative;
     z-index: -1;
+  }
+}
+
+@media screen and (min-width: 1441px) and (max-width: 2560px){
+  .carousel {
+    &__slider {
+      max-height: 700px;
+      &--image {
+        max-height: 700px;
+      }
+    }
   }
 }

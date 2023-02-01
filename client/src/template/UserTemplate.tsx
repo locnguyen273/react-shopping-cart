@@ -16,6 +16,7 @@ const UserTemplate = () => {
     flexDirection: "column",
     justifyContent: "space-between",
     position: "relative",
+    maxWidth: "100vw",
   };
   const scrollToTop : any = {
     width: "40px",
@@ -24,7 +25,7 @@ const UserTemplate = () => {
     background: "#000",
     minWidth: "0px",
     position: "fixed",
-    bottom: "10%",
+    bottom: "20%",
     right: "2%",
   };
 

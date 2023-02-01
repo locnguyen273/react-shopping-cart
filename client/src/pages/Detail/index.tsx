@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/configStore";
 import ProductNewArrival from "../../components/ProductNewArrival";
-import { ProductType } from "../../redux/models/ProductModel";
+import { ProductType } from "../../redux/models/type";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";

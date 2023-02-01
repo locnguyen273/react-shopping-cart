@@ -2,6 +2,7 @@
   max-width: 26vw;
   width: 100%;
   height: auto;
+  min-height: 300px;
   display: flex;
   background-color: #fff;
   position: absolute;
@@ -33,6 +34,33 @@
     text-align: center;
     & a {
       font-weight: 700;
+    }
+  }
+  // .form-control {
+  //   max-width: 400px;
+  //   width: 100%;
+  //   font-size: 1rem;
+  //   padding: 10px 50px 10px 10px;
+  // }
+  .login-form {
+    max-width: 400px;
+    height: 45px;
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 50px 10px 10px;
+    &__password {
+      position: relative;
+      max-width: 400px;
+      height: 45px;
+    }
+    &__show {
+      cursor: pointer;
+      position: absolute;
+      top: 0 !important;
+      right: -16% !important;
+      width: 50px;
+      height: 100%;
+      border: 1px solid lightgray;
     }
   }
 }

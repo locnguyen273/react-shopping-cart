@@ -6,7 +6,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
 import { RootState } from "../../redux/configStore";
-import { ProductType } from "../../redux/models/ProductModel";
+import { ProductType } from "../../redux/models/type";
 import { addToCart } from "../../redux/reducers/cartReducer";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
