@@ -21,8 +21,16 @@ export interface UserType {
   accessToken: string;
 
 }
-export interface ThongTinNguoiDungDangKi {
+export interface LoginUserProps {
   username: string;
-  email: string;
   password: string;
+}
+export interface UserInfoRegister {
+  name: string;
+  email: string;
+  username: string;
+  password: string;
+  phone: string;
+  address: string;
+  gender: boolean;
 }

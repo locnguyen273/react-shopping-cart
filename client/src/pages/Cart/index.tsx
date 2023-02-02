@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/configStore";
 import Table from "@mui/material/Table";
@@ -15,61 +14,31 @@ import {
   incrementQuantity,
   removerItem,
 } from "../../redux/reducers/cartReducer";
-import Snackbar from "@mui/material/Snackbar";
-import Alert, { AlertColor } from "@mui/material/Alert";
 import Typography from "@mui/material/Typography";
 import ImgEmptyCart from "../../assets/images/empty-cart.jpg";
 import "./style.scss";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-export interface StatusProps {
-  severity: AlertColor  | undefined;
-  message: string;
-}
+
+
 
 const Cart = () => {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const cartStore = useSelector((state: RootState) => state.cartReducer.cart);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [status, setStatus] = useState<StatusProps>({
-    severity: "success",
-    message: "Bạn đã thêm vào giỏ hàng thành công !"
-  });
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenSnackbar(false);
-  };
 
   const handleDeleteFromCart = (cartItem: any) => {
     dispatch(removerItem(cartItem));
-    setOpenSnackbar(true);
-    setStatus({
-      severity: "error",
-      message: "Xóa sản phẩm thành công !"
-    });
+    toast.error("Đã xóa sản phẩm thành công !");
   };
   const handleDecrease = (cartItem: any) => {
     dispatch(decrementQuantity(cartItem));
-    setOpenSnackbar(true);
-    setStatus({
-      severity: "warning",
-      message: "Giảm số lượng sản phẩm thành công !"
-    });
+    toast.warning("Giảm số lượng sản phẩm thành công !");
   };
   const handleIncrease = (cartItem: any) => {
     dispatch(incrementQuantity(cartItem));
-    setOpenSnackbar(true);
-    setStatus({
-      severity: "success",
-      message: "Tăng số lượng sản phẩm thành công !"
-    });
+    toast.success("Tăng số lượng sản phẩm thành công !");
   };
 
   const getPaymentForUser = () => {
@@ -194,16 +163,6 @@ const Cart = () => {
           </Button>
         </div>
       )}
-
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity={status.severity} sx={{ width: "100%" }}>
-          {status.message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 };

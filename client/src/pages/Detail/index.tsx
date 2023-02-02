@@ -10,8 +10,7 @@ import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
 import NewsLetter from "../../components/NewsLetter";
 import "./style.scss";
 import { addToCart } from "../../redux/reducers/cartReducer";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
+import { toast } from "react-toastify";
 
 const Detail = () => {
   let { id } = useParams();
@@ -26,19 +25,9 @@ const Detail = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const handleAddToCart = (item: ProductType) => {
     dispatch(addToCart(item));
-    setOpenSnackbar(true);
-  };
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenSnackbar(false);
+    toast.success("Thêm sản phẩm vào giỏ hàng thành công !");
   };
 
   return (
@@ -104,15 +93,6 @@ const Detail = () => {
       )}
       <ProductNewArrival />
       <NewsLetter />
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          Bạn đã thêm vào giỏ hàng thành công !
-        </Alert>
-      </Snackbar>
     </>
   );
 };

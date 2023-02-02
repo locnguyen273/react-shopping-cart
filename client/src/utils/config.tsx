@@ -1,60 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-useless-computed-key */
 import axios from "axios";
-import { createBrowserHistory } from "history";
-export const USER_LOGIN = "userLogin";
-export const ACCESSTOKEN = "accessToken";
+// import { history } from "../index";
 
-//history dùng để chuyển hướng trang trong các file không phải là component
-export const history = createBrowserHistory();
-
-export const settings = {
-  setStorageJson: (name: string, data: any): void => {
-    data = JSON.stringify(data);
-    localStorage.setItem(name, data);
-  },
-  setStorage: (name: string, data: any): void => {
-    localStorage.setItem(name, data);
-  },
-  getStorageJson: (name: string): any | undefined | null => {
-    if (localStorage.getItem(name)) {
-      const dataStore: string | undefined | null = localStorage.getItem(name);
-      if (typeof dataStore === "string") {
-        const data = JSON.parse(dataStore);
-        return data;
-      }
-      return null;
-    }
-    return null;
-  },
-  getStore: (name: string): string | null | undefined => {
-    if (localStorage.getItem(name)) {
-      const data: string | null | undefined = localStorage.getItem(name);
-      return data;
-    }
-    return null;
-  },
-  setCookieJson: (name: string, value: any, days: number): void => {
-    var expires = "";
-    if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-      expires = "; expires=" + date.toUTCString();
-    }
-    value = JSON.stringify(value);
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
-  },
-  getCookieJson: (name: string): any => {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(";");
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) === " ") c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0)
-        return JSON.parse(c.substring(nameEQ.length, c.length));
-    }
-    return null;
-  },
-  setCookie: (name: string, value: string, days: number): void => {
+export const config = {
+  setCookie: (name: string, value: string, days: number) => {
     var expires = "";
     if (days) {
       var date = new Date();
@@ -63,7 +12,7 @@ export const settings = {
     }
     document.cookie = name + "=" + (value || "") + expires + "; path=/";
   },
-  getCookie: (name: string): string | null => {
+  getCookie: (name: string) => {
     var nameEQ = name + "=";
     var ca = document.cookie.split(";");
     for (var i = 0; i < ca.length; i++) {
@@ -73,39 +22,84 @@ export const settings = {
     }
     return null;
   },
-  eraseCookie: (name: string): void => {
+  eraseCookie: (name: string) => {
     document.cookie =
       name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
   },
+  getStore: (name: string) => {
+    if (localStorage.getItem(name)) {
+      return localStorage.getItem(name);
+    }
+    return null;
+  },
+  setStore: (name: string, value: any) => {
+    localStorage.setItem(name, value);
+  },
+  setStoreJson: (name: string, value: any) => {
+    let json = JSON.stringify(value);
+    localStorage.setItem(name, json);
+  },
+  getStoreJson: (name: string) => {
+    if (localStorage.getItem(name)) {
+      let result: any = localStorage.getItem(name);
+      return JSON.parse(result);
+    }
+    return null;
+  },
+  clearStore: (name: string) => {
+    localStorage.removeItem(name);
+  },
+  timeout: (delay: number) => {
+    return new Promise((res) => setTimeout(res, delay));
+  },
+  ACCESS_TOKEN: "access_token",
+  USER_LOGIN: "userLogin",
+  ID_LOGIN: "id_login",
+  ROLE_lOGIN: "role_login",
 };
 
-//Setup hằng số, 1 số hàm xử lý chung, ...
-// export const TOKEN_CYBERSOFT: string =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCAzMkUiLCJIZXRIYW5TdHJpbmciOiIyMC8wMy8yMDIzIiwiSGV0SGFuVGltZSI6IjE2NzkyNzA0MDAwMDAiLCJuYmYiOjE2NTA0NzQwMDAsImV4cCI6MTY3OTQxODAwMH0.S7l5kogAVJjRW8mjJ5gosJraYq5ahYjrBwnMJAaGxlY";
+export const {
+  setCookie,
+  getCookie,
+  setStore,
+  getStore,
+  setStoreJson,
+  getStoreJson,
+  clearStore,
+  timeout,
+  ACCESS_TOKEN,
+  USER_LOGIN,
+  ID_LOGIN,
+  ROLE_lOGIN,
+} = config;
 
+/**Cấu hình request cho tất cả api cũng như response cho tất cả kết quả từ api trả về */
+//cấu hình domain gửi đi:
+const DOMAIN = "http://127.0.0.1:5000/api/";
+const TOKEN_CYBERSOFT =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCAwMSIsIkhldEhhblN0cmluZyI6IjMwLzA5LzIwMzEiLCJIZXRIYW5UaW1lIjoiMTk0ODQ5MjgwMDAwMCIsIm5iZiI6MTYwMTIyNjAwMCwiZXhwIjoxOTQ4NjQwNDAwfQ.4l-eTzlgVnFczfvc2Or7BNPOcaesY3Kwc8RoNm-o-6M";
 export const http = axios.create({
-  baseURL: "http://127.0.0.1:5000/api/", //tất cả các hàm khi gọi api đều sử dụng domain này
-  timeout: 30000, //nếu request mất 5 phút mà không nhận được kết quả thì huỷ request
+  baseURL: DOMAIN,
+  timeout: 30000,
 });
-
-//Cấu hình cho request: Client gửi api đến server
+//---Cấu hình request header
 http.interceptors.request.use(
   (config: any) => {
+    const token = getStore(ACCESS_TOKEN);
     config.headers = {
       ...config.headers,
-      // TokenCybersoft: TOKEN_CYBERSOFT,
-      Authorization: "Bearer " + settings.getStore(ACCESSTOKEN),
+      ["token"]: `${token}`,
+      ["TokenCybersoft"]: TOKEN_CYBERSOFT,
     };
-
+    config.headers['Content-Type'] = 'application/json';
     return config;
   },
-  (err) => {
-    console.log(err);
-    return Promise.reject(err);
+  (error) => {
+    Promise.reject(error);
   }
 );
 
-//cấu hình cho response: Server sẽ trả dữ liệu về cho client
+//---Cấu hình kết quả trả về (response)
 http.interceptors.response.use(
   (response) => {
     return response;
@@ -116,21 +110,32 @@ http.interceptors.response.use(
     if (error.response?.status === 401) {
       // window.location.href = '/login';
       //Chuyển hướng trang mà không cần reload lại trang để giữ được các state hiện tại trên redux
-      history.push("/login");
     }
-    if (error.response?.status === 400 || error.response?.status === 400) {
-      history.push("/");
-    }
+    if (error.response?.status === 400 || error.response?.status === 400) {}
     return Promise.reject(error);
   }
 );
 
-/* Các status code thường gặp
-  200: Request gửi đi và nhận về kết quả thành
-  201: request gửi đi thành công và đã được khởi tạo 
-  400: bad request => request gửi đi thành công tuy nhiên không tìm thấy dữ liệu từ tham số gửi đi
-  404: Not found (Không tìm thấy api đó), hoặc tương tự 400
-  401: Unauthorize token không hợp lệ không có quyền truy cập vào api đó
-  403: Forbinden token hợp lệ tuy nhiên chưa đủ quyền để truy cập vào api đó
-  500: Error server (Lỗi xảy ra trên server có khả năng là frontend gửi dữ liệu chưa hợp lệ dẫn đến backend xử lý bị lỗi). Backend code lỗi trên server ! => Test bằng post man hoặc swagger nếu api không lỗi => front code sai, ngược lại tail fail trên post man và swagger thì báo backend fix.
-*/
+/**
+ * 
+ * status code
+ * 400: Tham số gởi lên không hợp lệ => kết quả không tìm được ( Badrequest )
+ * 
+ * 404: Tham số gởi lên hợp lệ nhưng không tìm thấy => Có thể bị xoá rồi ( Not found )...
+ * 
+ * 200: Thành công, OK
+ * 
+ * 201: Đã được tạo thành công => ( Mình đã tạo ra rồi sau đó request tiếp thì sẽ trả 201 ) (Created)
+ * 
+ * 401: Không có quyền truy cập vào api đó ( Unathorize - có thể do token không hợp lệ họăc bị admin chặn )
+ * 
+ * 403: Chưa đủ quyền truy cập api đó ( Forbiden - token hợp lệ tuy nhiên token đó chưa đủ quyền truy cập vào api )
+ * 
+ * 500: Lỗi xảy ra tại sever ( Nguyên nhân có thể fondtend gửi dữ liệu không hợp lệ => backend trong quá trình xử lý code gây ra lỗi
+        hoặc do backend code bị lỗi => Eror in sever)
+        
+// localStorage.removeItem("access_token");
+// localStorage.removeItem("userLogin");
+// localStorage.removeItem("role_login");
+// localStorage.removeItem("id_login");
+ */

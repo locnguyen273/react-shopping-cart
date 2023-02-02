@@ -20,60 +20,79 @@
     font-size: 2.5rem !important;
     margin: 1rem 0 !important;
   }
-  &__input {
-    margin: 1rem 0 !important;
+  &__bottom {
+    margin: 2rem 0 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
   }
   &__submit {
     background: linear-gradient(to right, #09d2de, #8568ed, #f504fe);
     padding: 0.7rem 1rem !important;
     font-size: 17px !important;
     border-radius: 40px !important;
+    color: #fff !important;
+    width: 70%;
   }
   &__redirect {
     font-size: 16px;
     text-align: center;
-    & a {
-      font-weight: 700;
+    margin: 1rem 0;
+  }
+  &__username {
+    margin: 1.5rem 0 .7rem;
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    border: 1px solid lightgray;
+    &--input {
+      flex: 1;
+      padding: 5px 10px 5px;
     }
   }
-  // .form-control {
-  //   max-width: 400px;
-  //   width: 100%;
-  //   font-size: 1rem;
-  //   padding: 10px 50px 10px 10px;
-  // }
-  .login-form {
-    max-width: 400px;
-    height: 45px;
-    width: 100%;
-    font-size: 1rem;
-    padding: 10px 50px 10px 10px;
-    &__password {
-      position: relative;
-      max-width: 400px;
-      height: 45px;
+  &__password {
+    margin: 1.5rem 0 .7rem;
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    border: 1px solid lightgray;
+    &--input {
+      flex: 1;
+      padding: 5px 10px 5px;
     }
-    &__show {
-      cursor: pointer;
-      position: absolute;
-      top: 0 !important;
-      right: -16% !important;
+    &--btn-show {
       width: 50px;
-      height: 100%;
-      border: 1px solid lightgray;
+      height: 44px;
+      border: none;
+      background: transparent;
+      border-radius: 0px;
+      cursor: pointer;
+      transition: all 0.5s ease-in-out;
+      color: darkgray;
+      &:hover {
+        background: #000;
+        color: #fff;
+      }
     }
   }
-}
-.login-mobile {
-  max-width: 80vw;
-  width: 100%;
-  display: flex;
-  background-color: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  flex-direction: column;
-  border-radius: 10px;
-  padding: 1rem 2rem;
+  .text-danger {
+    color: red;
+  }
+
+
+  .login-mobile {
+    max-width: 80vw;
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+  }
 }

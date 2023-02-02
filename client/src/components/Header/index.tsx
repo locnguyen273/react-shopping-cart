@@ -13,11 +13,13 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/configStore";
+import { ACCESS_TOKEN, clearStore, getStore } from "../../utils/config";
+import { logoutAction } from "../../redux/reducers/authReducer";
 
 const Header = () => {
-  const logged = false;
+  const isLoggedIn = getStore(ACCESS_TOKEN);
   const location = useLocation();
   const [active, setActive] = useState<string>("");
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -25,7 +27,7 @@ const Header = () => {
   const open = Boolean(anchorEl);
   const viewPort = useViewport();
   const isMobile = viewPort.width < 1024;
-
+  const dispatch = useDispatch();
   useEffect(() => {
     setActive(location.pathname);
   }, []);
@@ -76,41 +78,47 @@ const Header = () => {
   const menuAuth = () => {
     return (
       <>
-        {logged ?
-          loggedInMenu.map((item, index) => {
-            return (
-              <MenuItem key={index}>
-                <Link
-                  to={item.pathName}
-                  onClick={() => setActive(item.pathName)}
-                >
-                  {item.label}
-                </Link>
-              </MenuItem>
-            );
-          }) : noLoggedInMenu.map((item, index) => {
-            return (
-              <MenuItem key={index}>
-                <Link
-                  to={item.pathName}
-                  onClick={() => setActive(item.pathName)}
-                  className={`${active === item.pathName && "active"}`}
-                >
-                  {item.label}
-                </Link>
-              </MenuItem>
-            );
-          })}
+        {isLoggedIn
+          ? loggedInMenu.map((item, index) => {
+              return (
+                <MenuItem key={index}>
+                  <Link
+                    to={item.pathName}
+                    onClick={() => setActive(item.pathName)}
+                  >
+                    {item.label}
+                  </Link>
+                </MenuItem>
+              );
+            })
+          : noLoggedInMenu.map((item, index) => {
+              return (
+                <MenuItem key={index}>
+                  <Link
+                    to={item.pathName}
+                    onClick={() => setActive(item.pathName)}
+                    className={`${active === item.pathName && "active"}`}
+                  >
+                    {item.label}
+                  </Link>
+                </MenuItem>
+              );
+            })}
       </>
     );
   };
-  const cart = useSelector((state : RootState) => state.cartReducer.cart)
+  const cart = useSelector((state: RootState) => state.cartReducer.cart);
+  const { userInfoLogin } = useSelector((state: RootState) => state.AuthReducer);
   const getTotalQuantity = () => {
     let total = 0;
-    cart.forEach((item : any) => {
+    cart.forEach((item: any) => {
       total += item.quantity;
-    })
+    });
     return total;
+  };
+  const handleLogout = () => {
+    clearStore(ACCESS_TOKEN);
+    dispatch(logoutAction(userInfoLogin));
   }
 
   return (
@@ -179,42 +187,52 @@ const Header = () => {
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
+          style={{ top: "20px" }}
         >
-          {logged
-            ? loggedInMenu.length > 0 &&
-              loggedInMenu.map((item, index) => {
-                return (
-                  <MenuItem key={index}>
-                    <Link
-                      to={item.pathName}
-                      className={
-                        isMobile
-                          ? "header-mobile__right__menu--item"
-                          : "header__right__menu--item"
-                      }
-                    >
-                      {item.label}
-                    </Link>
-                  </MenuItem>
-                );
-              })
-            : noLoggedInMenu.length > 0 &&
-              noLoggedInMenu.map((item, index) => {
-                return (
-                  <MenuItem key={index}>
-                    <Link
-                      to={item.pathName}
-                      className={
-                        isMobile
-                          ? "header-mobile__right__menu--item"
-                          : "header__right__menu--item"
-                      }
-                    >
-                      {item.label}
-                    </Link>
-                  </MenuItem>
-                );
-              })}
+          {isLoggedIn ? (
+            <div>
+              <MenuItem>
+                <Link
+                  className={
+                    isMobile
+                      ? "header-mobile__right__menu--item"
+                      : "header__right__menu--item"
+                  }
+                  to="/profile"
+                >
+                  Tài khoản của tôi
+                </Link>
+              </MenuItem>
+              <MenuItem
+                onClick={handleLogout}
+                className={
+                  isMobile
+                    ? "header-mobile__right__menu--item"
+                    : "header__right__menu--item"
+                }
+              >
+                Đăng xuất
+              </MenuItem>
+            </div>
+          ) : (
+            noLoggedInMenu.length > 0 &&
+            noLoggedInMenu.map((item, index) => {
+              return (
+                <MenuItem key={index}>
+                  <Link
+                    className={
+                      isMobile
+                        ? "header-mobile__right__menu--item"
+                        : "header__right__menu--item"
+                    }
+                    to={item.pathName}
+                  >
+                    {item.label}
+                  </Link>
+                </MenuItem>
+              );
+            })
+          )}
         </Menu>
       </div>
     </div>
