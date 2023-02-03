@@ -18,8 +18,22 @@
     font-size: 2.5rem !important;
     margin: 1rem 0 !important;
   }
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
   &__input {
-    margin: 1rem 0 !important;
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    border: 1px solid lightgray;
+    & input {
+      padding: 10px 10px;
+    }
+  }
+  &__gender {
+    margin: 1rem 0;
   }
   &__submit {
     background: linear-gradient(to right, #09d2de, #8568ed, #f504fe);
@@ -33,6 +47,9 @@
     & a {
       font-weight: 700;
     }
+  }
+  .text-danger {
+    color: red;
   }
 }
 

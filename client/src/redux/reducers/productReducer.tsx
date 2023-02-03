@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { http } from "../../utils/config";
 import { AppDispatch } from "../configStore";
-import { ProductType } from "../models/ProductModel";
+import { ProductType } from "../models/type";
 
 const initialState : any = {
   listProduct: []

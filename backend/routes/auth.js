@@ -6,12 +6,16 @@ const jwt = require("jsonwebtoken");
 //REGISTER
 router.post("/register", async (req, res) => {
   const newUser = new User({
-    username: req.body.username,
+    name: req.body.name,
     email: req.body.email,
+    username: req.body.username,
     password: CryptoJS.AES.encrypt(
       req.body.password,
       process.env.PASS_SEC
     ).toString(),
+    phone: req.body.phone,
+    address: req.body.address,
+    gender: req.body.gender
   });
 
   try {

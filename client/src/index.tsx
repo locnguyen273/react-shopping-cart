@@ -17,6 +17,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AuthTemplate from "./template/AuthTemplate";
 import { PersistGate } from "redux-persist/integration/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -24,6 +26,18 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <BrowserRouter>
         <Routes>
           <Route path="" element={<UserTemplate />}>

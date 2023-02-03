@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import useViewport from "../../hooks/useViewPort";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,10 +5,9 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
 import { RootState } from "../../redux/configStore";
-import { ProductType } from "../../redux/models/ProductModel";
+import { ProductType } from "../../redux/models/type";
 import { addToCart } from "../../redux/reducers/cartReducer";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
+import { toast } from "react-toastify";
 
 const ProductNewArrival = () => {
   let navigate = useNavigate();
@@ -19,20 +17,10 @@ const ProductNewArrival = () => {
     (state: RootState) => state.productReducer
   );
   const dispatch = useDispatch();
-  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleAddToCart = (item: ProductType) => {
     dispatch(addToCart(item));
-    setOpenSnackbar(true);
-  };
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpenSnackbar(false);
+    toast.success("Thêm sản phẩm vào giỏ hàng thành công !");
   };
 
   return (
@@ -85,19 +73,6 @@ const ProductNewArrival = () => {
             })}
         </div>
       </div>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleClose}
-      >
-        <Alert
-          onClose={handleClose}
-          severity="success"
-          sx={{ width: "100%" }}
-        >
-          Bạn đã thêm vào giỏ hàng thành công !
-        </Alert>
-      </Snackbar>
     </>
   );
 };
