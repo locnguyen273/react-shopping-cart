@@ -1,10 +1,11 @@
 import React from "react";
 import Slider from "react-slick";
 import "./style.scss";
-import { sliderItems } from "../../assets/data";
 import { SliderType } from "../../types/index";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/configStore";
 
 const HandlePrevArrow = (props: any) => {
   const { style, onClick } = props;
@@ -20,17 +21,19 @@ const HandlePrevArrow = (props: any) => {
         height: "70px",
         width: "45px",
         transform: "translateY(-50%)",
-        cursor: "pointer"
+        cursor: "pointer",
       }}
       onClick={onClick}
     >
-      <ArrowBackIosIcon style={{
-        color: "#fff",
-        height: "100%",
-        width: "70%",
-        display: "block",
-        margin: "0 0 0 10px",
-      }}/>
+      <ArrowBackIosIcon
+        style={{
+          color: "#fff",
+          height: "100%",
+          width: "70%",
+          display: "block",
+          margin: "0 0 0 10px",
+        }}
+      />
     </div>
   );
 };
@@ -49,17 +52,19 @@ const HandleNextArrow = (props: any) => {
         height: "70px",
         width: "45px",
         transform: "translateY(-50%)",
-        cursor: "pointer"
+        cursor: "pointer",
       }}
       onClick={onClick}
     >
-      <ArrowForwardIosIcon style={{
-        color: "#fff",
-        height: "100%",
-        width: "70%",
-        display: "block",
-        margin: "0 0 0 10px",
-      }}/>
+      <ArrowForwardIosIcon
+        style={{
+          color: "#fff",
+          height: "100%",
+          width: "70%",
+          display: "block",
+          margin: "0 0 0 10px",
+        }}
+      />
     </div>
   );
 };
@@ -74,11 +79,13 @@ const Carousel = () => {
     nextArrow: <HandleNextArrow />,
     prevArrow: <HandlePrevArrow />,
   };
+  const { sliderItems } = useSelector((state: RootState) => state.slideReducer);
+
   return (
     <div className="carousel">
-      <Slider {...settings}>
-        {sliderItems.length > 0 &&
-          sliderItems.map((item: SliderType) => {
+      {sliderItems?.length > 0 && (
+        <Slider {...settings}>
+          {sliderItems?.map((item: SliderType) => {
             return (
               <div key={item.id} className="carousel__slider">
                 <img
@@ -89,7 +96,8 @@ const Carousel = () => {
               </div>
             );
           })}
-      </Slider>
+        </Slider>
+      )}
     </div>
   );
 };

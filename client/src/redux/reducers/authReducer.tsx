@@ -3,6 +3,8 @@ import { AppDispatch } from "../configStore";
 import { LoginUserProps, UserInfoRegister, UserType } from "../models/type";
 import {
   ACCESS_TOKEN,
+  getStore,
+  getStoreJson,
   http,
   ID_LOGIN,
   setCookie,
@@ -12,7 +14,8 @@ import { toast } from "react-toastify";
 
 const initialState: any = {
   user: {},
-  userRegister: {}
+  userRegister: {},
+  userProfile: {},
 };
 
 const AuthReducer = createSlice({
@@ -28,15 +31,26 @@ const AuthReducer = createSlice({
     logoutAction: (state, action: any) => {
       state.user = {};
       toast.success("Đăng xuất thành công !");
-    }
+    },
+    getUserProfileAction: (state, action: PayloadAction<UserInfoRegister>) => {
+      state.userProfile = action.payload;
+    },
   },
 });
 
-export const { loginAction, registerAction, logoutAction } = AuthReducer.actions;
+export const {
+  loginAction,
+  registerAction,
+  logoutAction,
+  getUserProfileAction,
+} = AuthReducer.actions;
 export default AuthReducer.reducer;
 
 // ---------- Action API ---------- //
-
+const token = getStoreJson(ACCESS_TOKEN)
+const config = {
+  headers: { Authorization: `Bearer ${token}` }
+};
 export const handleLoginUser = (user: LoginUserProps) => {
   return async (dispatch: AppDispatch) => {
     try {
@@ -70,7 +84,7 @@ export const handleRegisterUser = (user: UserInfoRegister) => {
     try {
       const result = await http.post(`auth/register`, user);
       console.log(result);
-      
+
       if (result.status === 201) {
         toast.success("Đăng ký tài khoản thành công !");
 
@@ -81,6 +95,19 @@ export const handleRegisterUser = (user: UserInfoRegister) => {
     } catch (err: any) {
       console.log(err);
       toast.error(err.message);
+    }
+  };
+};
+
+export const handleGetUserProfile = (id_login = getStore(ID_LOGIN)) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      console.log(id_login);
+      const result = await http.get(`users/profile/${id_login}`,config);
+      console.log(result);
+      return { status: true, data: result.data };
+    } catch (err) {
+      console.log(err);
     }
   };
 };

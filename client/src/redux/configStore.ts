@@ -13,6 +13,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { slideReducer } from "./reducers/sliderReducer";
 
 const persistConfig = {
   key: "root",
@@ -23,7 +24,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   productReducer,
   cartReducer,
-  AuthReducer
+  AuthReducer,
+  slideReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

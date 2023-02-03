@@ -7,7 +7,6 @@ import { ProductType } from "../../redux/models/type";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import PhoneInTalkIcon from "@mui/icons-material/PhoneInTalk";
-import NewsLetter from "../../components/NewsLetter";
 import "./style.scss";
 import { addToCart } from "../../redux/reducers/cartReducer";
 import { toast } from "react-toastify";
@@ -92,7 +91,6 @@ const Detail = () => {
         </div>
       )}
       <ProductNewArrival />
-      <NewsLetter />
     </>
   );
 };
