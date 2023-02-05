@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import { getListProduct } from "../redux/reducers/productReducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/configStore";
+import NewsLetter from "../components/NewsLetter";
 
 const UserTemplate = () => {
   const layoutStyle: any = {
@@ -56,6 +57,7 @@ const UserTemplate = () => {
     <div style={layoutStyle}>
       <Header />
       <Outlet />
+      <NewsLetter />
       <Footer />
       {visible && (
         <Button style={scrollToTop} onClick={handleScrollToTop}>

@@ -85,7 +85,18 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
         },
       },
     ]);
-    res.status(200).json(data)
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// GET PROFILE
+router.get("/profile/:id", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const { password, __v, isAdmin, ...userProfile } = user._doc;
+    res.status(200).json({ status: true, userProfile });
   } catch (err) {
     res.status(500).json(err);
   }
