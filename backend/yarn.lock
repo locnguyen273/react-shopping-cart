@@ -20,14 +20,14 @@
   "version" "16.9.1"
 
 "@types/webidl-conversions@*":
-  "integrity" "sha512-XAahCdThVuCFDQLT7R7Pk/vqeObFNL3YqRyFZg+AqAP/W1/w3xHaIxuW7WszQqTbIBOPRcItYJIou3i/mppu3Q=="
-  "resolved" "https://registry.npmmirror.com/@types/webidl-conversions/-/webidl-conversions-6.1.1.tgz"
-  "version" "6.1.1"
+  "integrity" "sha512-xTE1E+YF4aWPJJeUzaZI5DRntlkY3+BCVJi0axFptnjGmAoWxkyREIh/XMrfxVLejwQxMCfDXdICo0VLxThrog=="
+  "resolved" "https://registry.npmmirror.com/@types/webidl-conversions/-/webidl-conversions-7.0.0.tgz"
+  "version" "7.0.0"
 
 "@types/whatwg-url@^8.2.1":
-  "integrity" "sha512-2YubE1sjj5ifxievI5Ge1sckb9k/Er66HyR2c+3+I6VDUUg1TLPdYYTEbQ+DjRkS4nTxMJhgWfSfMRD2sl2EYQ=="
-  "resolved" "https://registry.npmmirror.com/@types/whatwg-url/-/whatwg-url-8.2.1.tgz"
-  "version" "8.2.1"
+  "integrity" "sha512-FtQu10RWgn3D9U4aazdwIE2yzphmTJREDqNdODHrbrZmmMqI0vMheC/6NE/J1Yveaj8H+ela+YwWTjq5PGmuhA=="
+  "resolved" "https://registry.npmmirror.com/@types/whatwg-url/-/whatwg-url-8.2.2.tgz"
+  "version" "8.2.2"
   dependencies:
     "@types/node" "*"
     "@types/webidl-conversions" "*"
@@ -840,12 +840,12 @@
   "version" "1.2.5"
 
 "mongodb-connection-string-url@^2.0.0":
-  "integrity" "sha512-M0I1vyLoq5+HQTuPSJWbt+hIXsMCfE8sS1fS5mvP9R2DOMoi2ZD32yWqgBIITyu0dFu4qtS50erxKjvUeBiyog=="
-  "resolved" "https://registry.npmmirror.com/mongodb-connection-string-url/-/mongodb-connection-string-url-2.0.0.tgz"
-  "version" "2.0.0"
+  "integrity" "sha512-WvTZlI9ab0QYtTYnuMLgobULWhokRjtC7db9LtcVfJ+Hsnyr5eo6ZtNAt3Ly24XZScGMelOcGtm7lSn0332tPQ=="
+  "resolved" "https://registry.npmmirror.com/mongodb-connection-string-url/-/mongodb-connection-string-url-2.6.0.tgz"
+  "version" "2.6.0"
   dependencies:
     "@types/whatwg-url" "^8.2.1"
-    "whatwg-url" "^9.1.0"
+    "whatwg-url" "^11.0.0"
 
 "mongodb@4.1.1":
   "integrity" "sha512-fbACrWEyvr6yl0sSiCGV0sqEiBwTtDJ8iSojmkDjAfw9JnOZSAkUyv9seFSPYhPPKwxp1PDtyjvBNfMDz0WBLQ=="
@@ -1021,9 +1021,9 @@
     "once" "^1.3.1"
 
 "punycode@^2.1.1":
-  "integrity" "sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A=="
-  "resolved" "https://registry.npmmirror.com/punycode/-/punycode-2.1.1.tgz"
-  "version" "2.1.1"
+  "integrity" "sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA=="
+  "resolved" "https://registry.npmmirror.com/punycode/-/punycode-2.3.0.tgz"
+  "version" "2.3.0"
 
 "pupa@^2.0.1":
   "integrity" "sha512-l1jNAspIBSFqbT+y+5FosojNpVpF94nlI+wDUpqP9enwOTfHx9f0gh5nB96vl+6yTpsJsypeNrwfzPrKuHB41A=="
@@ -1288,10 +1288,10 @@
   dependencies:
     "nopt" "~1.0.10"
 
-"tr46@^2.1.0":
-  "integrity" "sha512-15Ih7phfcdP5YxqiB+iDtLoaTz4Nd35+IiAv0kQ5FNKHzXgdWqPoTIqEDDJmXceQt4JZk6lVPT8lnDlPpGDppw=="
-  "resolved" "https://registry.npmmirror.com/tr46/-/tr46-2.1.0.tgz"
-  "version" "2.1.0"
+"tr46@^3.0.0":
+  "integrity" "sha512-l7FvfAHlcmulp8kr+flpQZmVwtu7nfRV7NZujtN0OqES8EL4O4e0qqzL0DC5gAvx/ZC/9lk6rhcUwYvkBnBnYA=="
+  "resolved" "https://registry.npmmirror.com/tr46/-/tr46-3.0.0.tgz"
+  "version" "3.0.0"
   dependencies:
     "punycode" "^2.1.1"
 
@@ -1370,18 +1370,18 @@
   "resolved" "https://registry.npmmirror.com/vary/-/vary-1.1.2.tgz"
   "version" "1.1.2"
 
-"webidl-conversions@^6.1.0":
-  "integrity" "sha512-qBIvFLGiBpLjfwmYAaHPXsn+ho5xZnGvyGvsarywGNc8VyQJUMHJ8OBKGGrPER0okBeMDaan4mNBlgBROxuI8w=="
-  "resolved" "https://registry.npmmirror.com/webidl-conversions/-/webidl-conversions-6.1.0.tgz"
-  "version" "6.1.0"
+"webidl-conversions@^7.0.0":
+  "integrity" "sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g=="
+  "resolved" "https://registry.npmmirror.com/webidl-conversions/-/webidl-conversions-7.0.0.tgz"
+  "version" "7.0.0"
 
-"whatwg-url@^9.1.0":
-  "integrity" "sha512-CQ0UcrPHyomtlOCot1TL77WyMIm/bCwrJ2D6AOKGwEczU9EpyoqAokfqrf/MioU9kHcMsmJZcg1egXix2KYEsA=="
-  "resolved" "https://registry.npmmirror.com/whatwg-url/-/whatwg-url-9.1.0.tgz"
-  "version" "9.1.0"
+"whatwg-url@^11.0.0":
+  "integrity" "sha512-RKT8HExMpoYx4igMiVMY83lN6UeITKJlBQ+vR/8ZJ8OCdSiN3RwCq+9gH0+Xzj0+5IrM6i4j/6LuvzbZIQgEcQ=="
+  "resolved" "https://registry.npmmirror.com/whatwg-url/-/whatwg-url-11.0.0.tgz"
+  "version" "11.0.0"
   dependencies:
-    "tr46" "^2.1.0"
-    "webidl-conversions" "^6.1.0"
+    "tr46" "^3.0.0"
+    "webidl-conversions" "^7.0.0"
 
 "widest-line@^3.1.0":
   "integrity" "sha512-NsmoXalsWVDMGupxZ5R08ka9flZjjiLvHVAWYOKtiKM8ujtZWr9cRffak+uSE48+Ob8ObalXpwyeUiyDD6QFgg=="

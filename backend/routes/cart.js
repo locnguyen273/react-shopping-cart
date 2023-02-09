@@ -14,7 +14,7 @@ router.post("/", verifyToken, async (req, res) => {
 
   try {
     const savedCart = await newCart.save();
-    res.status(200).json(savedCart);
+    res.status(200).json({ status: true, savedCart, message: "" });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -30,7 +30,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       },
       { new: true }
     );
-    res.status(200).json(updatedCart);
+    res.status(200).json({ status: true, updatedCart, message: "Cập nhật giỏ hàng thành công!" });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -40,7 +40,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     await Cart.findByIdAndDelete(req.params.id);
-    res.status(200).json("Cart has been deleted...");
+    res.status(200).json({ status: true, message :"Giỏ hàng được xóa thành công!" });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -50,7 +50,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const cart = await Cart.findOne({ userId: req.params.userId });
-    res.status(200).json(cart);
+    res.status(200).json({ status: true, cart });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -61,7 +61,7 @@ router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   try {
     const carts = await Cart.find();
-    res.status(200).json(carts);
+    res.status(200).json({ status: true, carts });
   } catch (err) {
     res.status(500).json(err);
   }
