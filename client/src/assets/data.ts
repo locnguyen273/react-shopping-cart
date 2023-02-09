@@ -95,3 +95,8 @@ export const noLoggedInMenu = [
   { label: "Đăng nhập", pathName: "/login" },
   { label: "Đăng ký", pathName: "/register" },
 ];
+
+export const collapseProfile = [
+  { label: "Hồ sơ", type: "profile" },
+  { label: "Đổi mật khẩu", type: "change-pass" }
+]

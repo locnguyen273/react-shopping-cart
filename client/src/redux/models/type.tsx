@@ -34,3 +34,11 @@ export interface UserInfoRegister {
   address: string;
   gender: boolean;
 }
+export interface UserInfoUpdate {
+  name: string;
+  email: string;
+  username: string;
+  phone: string;
+  address: string;
+  gender: string;
+}

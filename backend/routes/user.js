@@ -18,18 +18,13 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
+      req.params.id, { $set: req.body }, { new: true }
     );
     res.status(200).json(updatedUser);
   } catch (err) {
     res.status(500).json(err);
   }
 });
-
 //DELETE
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
@@ -39,7 +34,6 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 //GET USER
 router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
@@ -50,7 +44,6 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 //GET ALL USER
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;
@@ -63,9 +56,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 //GET USER STATS
-
 router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
   const date = new Date();
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
@@ -90,12 +81,23 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 // GET PROFILE
-router.get("/profile/:id", verifyToken, async (req, res) => {
+router.get("/profile/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, __v, isAdmin, ...userProfile } = user._doc;
+    res.status(200).json({ status: true, userProfile });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+// UPDATE PROFILE
+router.put("/profile/:id", async (req, res) => {
+  try {
+    const updateUser = await User.findByIdAndUpdate(
+      req.params.id, { $set: req.body }, { new: true }
+    );
+    const { password, __v, isAdmin, ...userProfile } = updateUser._doc;
     res.status(200).json({ status: true, userProfile });
   } catch (err) {
     res.status(500).json(err);
