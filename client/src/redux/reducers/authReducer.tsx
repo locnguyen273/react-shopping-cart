@@ -1,10 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../configStore";
-import { LoginUserProps, UserInfoRegister, UserType } from "../models/type";
+import { LoginUserProps, UserInfoRegister, UserInfoUpdate, UserType } from "../models/type";
 import {
   ACCESS_TOKEN,
   getStore,
-  getStoreJson,
   http,
   ID_LOGIN,
   setCookie,
@@ -35,6 +34,10 @@ const AuthReducer = createSlice({
     getUserProfileAction: (state, action: PayloadAction<UserInfoRegister>) => {
       state.userProfile = action.payload;
     },
+    updateUserProfileAction: (state, action: PayloadAction<UserInfoRegister>) => {
+      state.userProfile = action.payload;
+      toast.success("Cập nhật tài khoản thành công !");
+    }
   },
 });
 
@@ -43,19 +46,16 @@ export const {
   registerAction,
   logoutAction,
   getUserProfileAction,
+  updateUserProfileAction,
 } = AuthReducer.actions;
 export default AuthReducer.reducer;
 
 // ---------- Action API ---------- //
-const token = getStoreJson(ACCESS_TOKEN)
-const config = {
-  headers: { Authorization: `Bearer ${token}` }
-};
+
 export const handleLoginUser = (user: LoginUserProps) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.post(`auth/login`, user);
-      console.log(result);
       // set token
       setCookie(ACCESS_TOKEN, result.data.accessToken, 30);
       setStore(ACCESS_TOKEN, result.data.accessToken);
@@ -102,12 +102,24 @@ export const handleRegisterUser = (user: UserInfoRegister) => {
 export const handleGetUserProfile = (id_login = getStore(ID_LOGIN)) => {
   return async (dispatch: AppDispatch) => {
     try {
-      console.log(id_login);
-      const result = await http.get(`users/profile/${id_login}`,config);
-      console.log(result);
-      return { status: true, data: result.data };
+      const result = await http.get(`users/profile/${id_login}`);
+      const action = getUserProfileAction(result.data.userProfile);
+      dispatch(action);
+      return { data: result.data };
     } catch (err) {
       console.log(err);
     }
   };
+};
+
+export const handleUpdateUserProfile = (id_login = getStore(ID_LOGIN), userUpdate : UserInfoUpdate) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.put(`users/profile/${id_login}`, userUpdate);
+      const action = updateUserProfileAction(result.data.userProfile);
+      dispatch(action);
+    } catch(err) {
+      console.log(err);
+    }
+  }
 };

@@ -108,7 +108,7 @@ const Header = () => {
     );
   };
   const cart = useSelector((state: RootState) => state.cartReducer.cart);
-  const { userInfoLogin } = useSelector((state: RootState) => state.AuthReducer);
+  const { userInfoLogin } = useSelector((state: RootState) => state.authReducer);
   const getTotalQuantity = () => {
     let total = 0;
     cart.forEach((item: any) => {
