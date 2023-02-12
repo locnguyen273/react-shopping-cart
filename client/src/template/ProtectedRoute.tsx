@@ -6,7 +6,7 @@ const ProtectedRoute = () => {
   const userProfile = useSelector(
     (state: RootState) => state.authReducer.userProfile
   );
-  if (Object.keys(userProfile).length === 0) {
+  if (JSON.stringify(userProfile) === "{}") {
     return <Navigate to="/login" replace />;
   }
   return <Outlet />;
