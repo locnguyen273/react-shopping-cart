@@ -7,10 +7,6 @@ import useViewport from "../../hooks/useViewPort";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import InputBase from "@mui/material/InputBase";
-import FormGroup from "@mui/material/FormGroup";
-import Switch from "@mui/material/Switch";
-import Stack from "@mui/material/Stack";
-import { styled } from "@mui/material/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
@@ -37,8 +33,6 @@ const Register = () => {
       username: "",
       password: "",
       phone: "",
-      address: "",
-      gender: false,
     },
     validationSchema: Yup.object().shape({
       // check validation
@@ -62,10 +56,8 @@ const Register = () => {
           "  Phone phải từ 03 05 07 08 09 và có 10 số "
         )
         .required(" Phone không được bỏ trống "),
-      address: Yup.string().required("Địa chỉ không được bỏ trống !"),
     }),
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: (values : any) => {
       dispatch(handleRegisterUser(values)).then(res => {
         if(res?.status === true) {
           navigate("/login");
@@ -73,50 +65,6 @@ const Register = () => {
       });
     },
   });
-  const AntSwitch = styled(Switch)(({ theme }) => ({
-    width: 28,
-    height: 16,
-    padding: 0,
-    display: "flex",
-    "&:active": {
-      "& .MuiSwitch-thumb": {
-        width: 15,
-      },
-      "& .MuiSwitch-switchBase.Mui-checked": {
-        transform: "translateX(9px)",
-      },
-    },
-    "& .MuiSwitch-switchBase": {
-      padding: 2,
-      "&.Mui-checked": {
-        transform: "translateX(12px)",
-        color: "#fff",
-        "& + .MuiSwitch-track": {
-          opacity: 1,
-          backgroundColor:
-            theme.palette.mode === "dark" ? "#177ddc" : "#1890ff",
-        },
-      },
-    },
-    "& .MuiSwitch-thumb": {
-      boxShadow: "0 2px 4px 0 rgb(0 35 11 / 20%)",
-      width: 12,
-      height: 12,
-      borderRadius: 6,
-      transition: theme.transitions.create(["width"], {
-        duration: 200,
-      }),
-    },
-    "& .MuiSwitch-track": {
-      borderRadius: 16 / 2,
-      opacity: 1,
-      backgroundColor:
-        theme.palette.mode === "dark"
-          ? "rgba(255,255,255,.35)"
-          : "rgba(0,0,0,.25)",
-      boxSizing: "border-box",
-    },
-  }));
 
   return (
     <div className={isMobile ? "register-mobile" : "register"}>
@@ -216,37 +164,6 @@ const Register = () => {
             ""
           )}
         </div>
-        <InputBase
-          className={isMobile ? "register-mobile__input" : "register__input"}
-          id="outlined-basic"
-          name="address"
-          placeholder="Địa chỉ"
-          onChange={frm.handleChange}
-          onBlur={frm.handleBlur}
-        />
-        <div className="text-danger">
-          {frm.errors.address && frm.touched.address ? (
-            <span className="text-danger">{frm.errors.address}</span>
-          ) : (
-            ""
-          )}
-        </div>
-        <FormGroup
-          className={isMobile ? "register-mobile__gender" : "register__gender"}
-        >
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Typography>Giới tính :</Typography>
-            <Typography>Nữ</Typography>
-            <AntSwitch
-              name="gender"
-              defaultChecked={frm.values.gender}
-              inputProps={{ "aria-label": "ant design" }}
-              onChange={frm.handleChange}
-              onBlur={frm.handleBlur}
-            />
-            <Typography>Nam</Typography>
-          </Stack>
-        </FormGroup>
         <Button className="register__submit" variant="contained" type="submit">
         Đăng Ký
       </Button>

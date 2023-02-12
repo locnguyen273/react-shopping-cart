@@ -14,8 +14,8 @@ router.post("/register", async (req, res) => {
       process.env.PASS_SEC
     ).toString(),
     phone: req.body.phone,
-    address: req.body.address,
-    gender: req.body.gender
+    address: "",
+    gender: ""
   });
 
   try {
@@ -28,45 +28,39 @@ router.post("/register", async (req, res) => {
 
 //LOGIN
 
-router.post('/login', async (req, res) => {
-    try{
-        const user = await User.findOne(
-            {
-                userName: req.body.user_name
-            }
-        );
+router.post("/login", async (req, res) => {
+  try {
+    const usernameReq = req.body.username;
+    const user = await User.findOne({ username: usernameReq });
+    const hashedPassword = CryptoJS.AES.decrypt(
+      user.password,
+      process.env.PASS_SEC
+    );
+    const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
+    const inputPassword = req.body.password;
+    const accessToken = jwt.sign(
+      {
+        id: user._id,
+        isAdmin: user.isAdmin,
+      },
+      process.env.JWT_SEC,
+      { expiresIn: "3d" }
+    );
+    const { password, ...others } = user._doc;
+    const data = { ...others, accessToken };
 
-        !user && res.status(401).json("Wrong User Name");
+    if (user.username === usernameReq && originalPassword === inputPassword) {
+      return res.status(200).json({ status: true, data });
 
-        const hashedPassword = CryptoJS.AES.decrypt(
-            user.password,
-            process.env.PASS_SEC
-        );
-
-
-        const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-
-        const inputPassword = req.body.password;
-        
-        originalPassword != inputPassword && 
-            res.status(401).json("Wrong Password");
-
-        const accessToken = jwt.sign(
-        {
-            id: user._id,
-            isAdmin: user.isAdmin,
-        },
-        process.env.JWT_SEC,
-            {expiresIn:"3d"}
-        );
-  
-        const { password, ...others } = user._doc;  
-        res.status(200).json({...others, accessToken});
-
-    }catch(err){
-        res.status(500).json(err);
+    } else {
+      return res.status(401).json({
+        status: false,
+        message: "Email hoặc mật khẩu không chính xác!",
+      });
     }
-
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;

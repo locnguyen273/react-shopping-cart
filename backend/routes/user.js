@@ -85,8 +85,8 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
 router.get("/profile/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    const { password, __v, isAdmin, ...userProfile } = user._doc;
-    res.status(200).json({ status: true, userProfile });
+    const { password, __v, isAdmin, ...data } = user._doc;
+    res.status(200).json({ status: true, data });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -97,8 +97,8 @@ router.put("/profile/:id", async (req, res) => {
     const updateUser = await User.findByIdAndUpdate(
       req.params.id, { $set: req.body }, { new: true }
     );
-    const { password, __v, isAdmin, ...userProfile } = updateUser._doc;
-    res.status(200).json({ status: true, userProfile });
+    const { password, __v, isAdmin, ...data } = updateUser._doc;
+    res.status(200).json({ status: true, data });
   } catch (err) {
     res.status(500).json(err);
   }

@@ -8,6 +8,7 @@ const AuthTemplate = () => {
     backgroundImage: `url("https://colorlib.com/etc/lf/Login_v4/images/bg-01.jpg")`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
+    overflow: "auto",
   }
   return (
     <div style={styles}>

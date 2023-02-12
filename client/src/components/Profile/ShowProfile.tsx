@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -10,7 +10,7 @@ import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import TextField from "@mui/material/TextField";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/configStore";
@@ -23,13 +23,13 @@ const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement<any, any>;
   },
-  ref: React.Ref<unknown>,
+  ref: React.Ref<unknown>
 ) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
 const ShowProfile = () => {
-  const dispatch : AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.authReducer.user._id);
   const userProfile = useSelector(
     (state: RootState) => state.authReducer.userProfile
@@ -42,18 +42,32 @@ const ShowProfile = () => {
     address: userProfile.address,
     gender: userProfile.gender,
   });
+  const { name, email, username, phone, address, gender } = userProfile;
+  let newProfile = { name, email, username, phone, address, gender };
   const [open, setOpen] = useState(false);
+  const [disBtn, setDisBtn] = useState(true);
+  const [valueModal, setValueModal] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  });
+
+  useEffect(() => {
+    if (JSON.stringify(newProfile) !== JSON.stringify(userInfo)) {
+      setDisBtn(false);
+    }
+  }, [userInfo]);
 
   const handleChangeUserInfo = (event: any) => {
-    const name = event.target.name;
+    const nameEvt = event.target.name;
     setUserInfo((prev: any) => ({
       ...prev,
-      [name]: event.target.value,
+      [nameEvt]: event.target.value,
     }));
   };
 
   const handleSaveChange = () => {
-    dispatch(handleUpdateUserProfile(userId , userInfo));
+    dispatch(handleUpdateUserProfile(userId, userInfo));
   };
 
   const handleClickOpen = () => {
@@ -63,6 +77,22 @@ const ShowProfile = () => {
     setOpen(false);
   };
 
+  const handleChangeValueModal = (event: any) => {
+    const name = event.target.name;
+    setValueModal((prev: any) => ({
+      ...prev,
+      [name]: event.target.value
+    }))
+  };
+
+  const handleConfirmPassword = () => {
+    console.log(valueModal);
+    if (valueModal.oldPassword !== userProfile.password) {
+      console.log("password not correct");
+    } else if (valueModal.oldPassword !== userProfile.password && valueModal.newPassword !== valueModal.confirmNewPassword) {
+      console.log("Mật khẩu và Mật khẩu xác nhận không giống nhau");
+    }
+  };
 
   return (
     <div className="show-profile">
@@ -109,43 +139,45 @@ const ShowProfile = () => {
         </div>
         <div className="show-profile__form--item">
           <FormControl>
-            <FormLabel id="demo-row-radio-buttons-group-label">Giới tính</FormLabel>
+            <FormLabel id="demo-row-radio-buttons-group-label">
+              Giới tính
+            </FormLabel>
             <RadioGroup
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="gender"
               onChange={handleChangeUserInfo}
             >
-              <FormControlLabel 
-                value="male" 
-                control={<Radio />} 
-                label="Nam" 
+              <FormControlLabel
+                value="male"
+                control={<Radio />}
+                label="Nam"
                 checked={userInfo.gender === "male" ? true : false}
               />
-              <FormControlLabel 
-                value="female" 
-                control={<Radio />} 
-                label="Nữ" 
+              <FormControlLabel
+                value="female"
+                control={<Radio />}
+                label="Nữ"
                 checked={userInfo.gender === "female" ? true : false}
               />
             </RadioGroup>
           </FormControl>
         </div>
         <div className="show-profile__form__group-btn">
-        <Button 
-          className="show-profile__form__group-btn--btn-save"
-          onClick={handleSaveChange}
-        >
-          Lưu
-        </Button>
-        <Button 
-          className="show-profile__form__group-btn--change-password"
-          onClick={handleClickOpen}
-        >
-          Thay đổi mật khẩu
-        </Button>
+          <Button
+            className="show-profile__form__group-btn--btn-save"
+            onClick={handleSaveChange}
+            disabled={disBtn}
+          >
+            Lưu
+          </Button>
+          <Button
+            className="show-profile__form__group-btn--change-password"
+            onClick={handleClickOpen}
+          >
+            Thay đổi mật khẩu
+          </Button>
         </div>
-        
       </div>
       <Dialog
         open={open}
@@ -156,14 +188,36 @@ const ShowProfile = () => {
       >
         <DialogTitle>{"Thay đổi mật khẩu"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
-          </DialogContentText>
+          <div className="show-profile__modal-popup">
+            <TextField
+              type={"password"}
+              label="Mật Khẩu Hiện Tại"
+              placeholder="Mật Khẩu Hiện Tại"
+              name="oldPassword"
+              value={valueModal.oldPassword}
+              onChange={handleChangeValueModal}
+            />
+            <TextField
+              type={"password"}
+              label="Mật Khẩu Mới"
+              placeholder="Mật Khẩu Mới"
+              name="newPassword"
+              value={valueModal.newPassword}
+              onChange={handleChangeValueModal}
+            />
+            <TextField
+              type={"password"}
+              label="Xác Nhận Mật Khẩu"
+              placeholder="Xác Nhận Mật Khẩu"
+              name="confirmNewPassword"
+              value={valueModal.confirmNewPassword}
+              onChange={handleChangeValueModal}
+            />
+          </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose}>Agree</Button>
+          <Button onClick={handleClose}>Hủy</Button>
+          <Button onClick={handleConfirmPassword}>Xác nhận</Button>
         </DialogActions>
       </Dialog>
     </div>

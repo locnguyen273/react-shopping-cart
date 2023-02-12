@@ -19,10 +19,12 @@ import AuthTemplate from "./template/AuthTemplate";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./template/ProtectedRoute";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
@@ -43,11 +45,14 @@ root.render(
           <Route path="" element={<UserTemplate />}>
             <Route path="/" element={<Home />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
-            <Route path="/profile" element={<Profile />}></Route>
+            <Route element={<ProtectedRoute />}>
+              <Route path="/profile" element={<Profile />}></Route>
+            </Route>
             <Route path="/product" element={<Product />}></Route>
             <Route path="/product/:id" element={<Detail />}></Route>
             <Route path="/news" element={<News />}></Route>
             <Route path="/he-thong-cua-hang" element={<StoreSystem />}></Route>
+            <Route path="*" element={<Home />}></Route>
           </Route>
           <Route path="" element={<AuthTemplate />}>
             <Route path="/login" element={<Login />}></Route>

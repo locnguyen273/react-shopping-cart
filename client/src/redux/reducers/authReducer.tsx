@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 
 const initialState: any = {
   user: {},
-  userRegister: {},
   userProfile: {},
 };
 
@@ -24,11 +23,9 @@ const AuthReducer = createSlice({
     loginAction: (state, action: PayloadAction<UserType>) => {
       state.user = action.payload;
     },
-    registerAction: (state, action: PayloadAction<UserInfoRegister>) => {
-      state.userRegister = action.payload;
-    },
     logoutAction: (state, action: any) => {
       state.user = {};
+      state.userProfile = {};
       toast.success("Đăng xuất thành công !");
     },
     getUserProfileAction: (state, action: PayloadAction<UserInfoRegister>) => {
@@ -43,7 +40,6 @@ const AuthReducer = createSlice({
 
 export const {
   loginAction,
-  registerAction,
   logoutAction,
   getUserProfileAction,
   updateUserProfileAction,
@@ -68,13 +64,13 @@ export const handleLoginUser = (user: LoginUserProps) => {
       if (result.status === 200) {
         toast.success("Đăng nhập thành công !");
 
-        let action = loginAction(result.data);
+        let action = loginAction(result.data.data);
         dispatch(action);
-        return { status: true, data: result.data };
+        dispatch(handleGetUserProfile(action.payload._id));
+        return { status: result.data.status, data: result.data.data };
       }
     } catch (err: any) {
-      console.log(err);
-      toast.error(err.message);
+      toast.error(err.response.data.message);
     }
   };
 };
@@ -87,9 +83,6 @@ export const handleRegisterUser = (user: UserInfoRegister) => {
 
       if (result.status === 201) {
         toast.success("Đăng ký tài khoản thành công !");
-
-        let action = registerAction(result.data);
-        dispatch(action);
         return { status: true, data: result.data };
       }
     } catch (err: any) {
@@ -103,7 +96,7 @@ export const handleGetUserProfile = (id_login = getStore(ID_LOGIN)) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.get(`users/profile/${id_login}`);
-      const action = getUserProfileAction(result.data.userProfile);
+      const action = getUserProfileAction(result.data.data);
       dispatch(action);
       return { data: result.data };
     } catch (err) {
