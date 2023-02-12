@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./style.scss";
 import { menuPages, loggedInMenu, noLoggedInMenu } from "../../assets/data";
 import useViewport from "../../hooks/useViewPort";
@@ -17,10 +17,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/configStore";
 import { ACCESS_TOKEN, clearStore, getStore } from "../../utils/config";
 import { logoutAction } from "../../redux/reducers/authReducer";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 
 const Header = () => {
   const isLoggedIn = getStore(ACCESS_TOKEN);
   const location = useLocation();
+  const navigate = useNavigate();
   const [active, setActive] = useState<string>("");
   const [openDrawer, setOpenDrawer] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -108,7 +111,9 @@ const Header = () => {
     );
   };
   const cart = useSelector((state: RootState) => state.cartReducer.cart);
-  const { userInfoLogin } = useSelector((state: RootState) => state.authReducer);
+  const { userInfoLogin } = useSelector(
+    (state: RootState) => state.authReducer
+  );
   const getTotalQuantity = () => {
     let total = 0;
     cart.forEach((item: any) => {
@@ -119,7 +124,8 @@ const Header = () => {
   const handleLogout = () => {
     clearStore(ACCESS_TOKEN);
     dispatch(logoutAction(userInfoLogin));
-  }
+    navigate("/");
+  };
 
   return (
     <div className={isMobile ? "header-mobile" : "header"}>
@@ -152,18 +158,18 @@ const Header = () => {
       </Link>
       {!isMobile && <div className="header__center">{menuCenter()}</div>}
       <div className={isMobile ? "header-mobile__right" : "header__right"}>
-        <Button
-          id="basic-button"
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-          className={
-            isMobile ? "header-mobile__right--user" : "header__right--user"
-          }
-        >
-          <AccountCircleRoundedIcon style={{ fontSize: "2.5rem" }} />
-        </Button>
+        <Tooltip title="Account settings">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 2 }}
+            aria-controls={open ? "account-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+          >
+            <AccountCircleRoundedIcon style={{ fontSize: "2.5rem" }} />
+          </IconButton>
+        </Tooltip>
         <Link
           to="/cart"
           className={
@@ -179,6 +185,7 @@ const Header = () => {
           />
           <p>{getTotalQuantity() || 0}</p>
         </Link>
+
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}

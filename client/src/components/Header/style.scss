@@ -45,21 +45,21 @@
 }
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   height: 4.5rem;
-  padding: 0 3rem;
   box-shadow: 0px 0px 10px 0px #858282;
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 9999;
   background: #fff;
-  width: 100%;
   &__left {
     text-decoration: none;
     font-size: 1.2rem;
-    width: 20vw;
+    max-width: 20vw;
+    width: 100%;
     text-align: center;
     & h2 {
       font-size: 1.7rem;
@@ -108,7 +108,9 @@
   &__right {
     display: flex;
     height: 100%;
+    width: 100%;
     align-items: center;
+    justify-content: center;
     max-width: 20vw;
     & button {
       color: #c4c4c4;
@@ -153,26 +155,26 @@
 @media screen and (max-width: 1024px) {
   .header {
     &__left {
-      width: 15vw;
+      max-width: 15vw;
       & h2 {
         font-size: 1.2rem;
       }
     }
     &__right {
-      width: 20vw;
+      max-width: 20vw;
     }
   }
 }
 @media screen and (min-width: 1025px) and (max-width: 1440px) {
   .header {
     &__left {
-      width: 15vw;
+      max-width: 15vw;
     }
     &__center {
       max-width: 35vw;
     }
     &__right {
-      width: 17vw;
+      max-width: 17vw;
     }
   }
 }
@@ -180,13 +182,13 @@
 @media screen and (min-width: 1441px) and (max-width: 2560px) {
   .header {
     &__left {
-      width: 15vw;
+      max-width: 20vw;
     }
     &__center {
-      max-width: 30vw;
+      max-width: 45vw;
     }
     &__right {
-      width: 15vw;
+      max-width: 15vw;
     }
   }
 }
