@@ -11,8 +11,8 @@ const router = require("express").Router();
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
   const newSlider = new Slider(req.body);
   try {
-    const savedSlider = await newSlider.save();
-    res.status(200).json({ status: true, savedSlider });
+    const data = await newSlider.save();
+    res.status(200).json({ status: true, data });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -21,14 +21,14 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
 //UPDATE
 router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
-    const updatedSlider = await Slider.findByIdAndUpdate(
+    const data = await Slider.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,
       },
       { new: true }
     );
-    res.status(200).json({ status: true, updatedSlider });
+    res.status(200).json({ status: true, data });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -49,19 +49,19 @@ router.get("/", async (req, res) => {
   const newSlider = req.query.new;
   const qCategory = req.query.category;
   try {
-    let sliders;
+    let data;
     if (newSlider) {
-      sliders = await Slider.find().sort({ createAt: -1 }).limit(1);
+      data = await Slider.find().sort({ createAt: -1 }).limit(1);
     } else if (qCategory) {
-      sliders = await Slider.find({
-        sliders: {
+      data = await Slider.find({
+        data: {
           $in: [qCategory],
         },
       });
     } else {
-      sliders = await Slider.find();
+      data = await Slider.find();
     }
-    res.status(200).json({ status: true, sliders: sliders, total: sliders.length });
+    res.status(200).json({ status: true, data: data, total: data.length });
   } catch (err) {
     res.status(500).json(err);
   }

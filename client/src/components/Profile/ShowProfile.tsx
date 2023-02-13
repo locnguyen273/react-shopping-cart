@@ -15,7 +15,10 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/configStore";
 import { UserInfoUpdate } from "../../redux/models/type";
-import { handleUpdateUserProfile } from "../../redux/reducers/authReducer";
+import {
+  handleUpdatePassword,
+  handleUpdateUserProfile,
+} from "../../redux/reducers/authReducer";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
 
@@ -81,17 +84,22 @@ const ShowProfile = () => {
     const name = event.target.name;
     setValueModal((prev: any) => ({
       ...prev,
-      [name]: event.target.value
-    }))
+      [name]: event.target.value,
+    }));
   };
 
   const handleConfirmPassword = () => {
-    console.log(valueModal);
-    if (valueModal.oldPassword !== userProfile.password) {
-      console.log("password not correct");
-    } else if (valueModal.oldPassword !== userProfile.password && valueModal.newPassword !== valueModal.confirmNewPassword) {
-      console.log("Mật khẩu và Mật khẩu xác nhận không giống nhau");
-    }
+    let newObj = {
+      userId,
+      ...valueModal,
+    };
+    dispatch(handleUpdatePassword(newObj)).then((res) => {
+      if (res.status) {
+        setTimeout(() => {
+          setOpen(false);
+        }, 1000);
+      }
+    });
   };
 
   return (

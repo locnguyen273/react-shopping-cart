@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../configStore";
-import { LoginUserProps, UserInfoRegister, UserInfoUpdate, UserType } from "../models/type";
+import {
+  LoginUserProps,
+  UserInfoRegister,
+  UserInfoUpdate,
+  UserType,
+} from "../models/type";
 import {
   ACCESS_TOKEN,
   getStore,
@@ -34,7 +39,7 @@ const AuthReducer = createSlice({
     updateUserProfileAction: (state, action: PayloadAction<UserInfoRegister>) => {
       state.userProfile = action.payload;
       toast.success("Cập nhật tài khoản thành công !");
-    }
+    },
   },
 });
 
@@ -105,14 +110,29 @@ export const handleGetUserProfile = (id_login = getStore(ID_LOGIN)) => {
   };
 };
 
-export const handleUpdateUserProfile = (id_login = getStore(ID_LOGIN), userUpdate : UserInfoUpdate) => {
+export const handleUpdateUserProfile = (
+  id_login = getStore(ID_LOGIN),
+  userUpdate: UserInfoUpdate
+) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.put(`users/profile/${id_login}`, userUpdate);
-      const action = updateUserProfileAction(result.data.userProfile);
+      const action = updateUserProfileAction(result.data.data);
       dispatch(action);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
+};
+
+export const handleUpdatePassword = (user: any) => {
+  return async () => {
+    try {
+      const result = await http.post(`users/change-password`, user);
+      toast.success(result.data.message);
+      return result.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 };

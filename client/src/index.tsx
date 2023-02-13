@@ -20,6 +20,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./template/ProtectedRoute";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

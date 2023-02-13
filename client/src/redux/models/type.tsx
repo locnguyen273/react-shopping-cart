@@ -42,3 +42,9 @@ export interface UserInfoUpdate {
   address: string;
   gender: string;
 }
+
+export interface SliderType {
+  _id: string;
+  title: string;
+  img: string;
+}

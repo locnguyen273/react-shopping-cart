@@ -1,102 +1,32 @@
 import React from "react";
-import Slider from "react-slick";
 import "./style.scss";
-import { SliderType } from "../../types/index";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/configStore";
-
-const HandlePrevArrow = (props: any) => {
-  const { style, onClick } = props;
-  return (
-    <div
-      style={{
-        ...style,
-        display: "block",
-        background: "#5c5c5c73",
-        position: "absolute",
-        top: "50%",
-        left: "1%",
-        height: "70px",
-        width: "45px",
-        transform: "translateY(-50%)",
-        cursor: "pointer",
-      }}
-      onClick={onClick}
-    >
-      <ArrowBackIosIcon
-        style={{
-          color: "#fff",
-          height: "100%",
-          width: "70%",
-          display: "block",
-          margin: "0 0 0 10px",
-        }}
-      />
-    </div>
-  );
-};
-
-const HandleNextArrow = (props: any) => {
-  const { style, onClick } = props;
-  return (
-    <div
-      style={{
-        ...style,
-        display: "block",
-        background: "#5c5c5c73",
-        position: "absolute",
-        top: "50%",
-        right: "1%",
-        height: "70px",
-        width: "45px",
-        transform: "translateY(-50%)",
-        cursor: "pointer",
-      }}
-      onClick={onClick}
-    >
-      <ArrowForwardIosIcon
-        style={{
-          color: "#fff",
-          height: "100%",
-          width: "70%",
-          display: "block",
-          margin: "0 0 0 10px",
-        }}
-      />
-    </div>
-  );
-};
+import { SliderType } from "../../redux/models/type";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
 
 const Carousel = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    nextArrow: <HandleNextArrow />,
-    prevArrow: <HandlePrevArrow />,
-  };
-  const { sliderItems } = useSelector((state: RootState) => state.slideReducer);
+  const sliders = useSelector(
+    (state: RootState) => state.slideReducer.sliders.data
+  );
 
   return (
     <div className="carousel">
-      {sliderItems?.length > 0 && (
-        <Slider {...settings}>
-          {sliderItems?.map((item: SliderType) => {
+      {sliders?.length > 0 && (
+        <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
+          {sliders?.map((item: SliderType) => {
             return (
-              <div key={item.id} className="carousel__slider">
+              <SwiperSlide key={item._id} className="carousel__slider">
                 <img
                   className="carousel__slider--image"
                   src={item.img}
                   alt={item.title}
                 />
-              </div>
+              </SwiperSlide>
             );
           })}
-        </Slider>
+        </Swiper>
       )}
     </div>
   );

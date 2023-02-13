@@ -1,37 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { http } from "../../utils/config";
+import { AppDispatch } from "../configStore";
+import { SliderType } from "../models/type";
 
 const initialState : any = {
-  sliderItems: [
-    {
-      id: 1,
-      img: "https://bizweb.dktcdn.net/100/395/283/themes/776535/assets/slider_1.jpg?1673021351308",
-      title:"img 1"
-    },
-    {
-      id: 2,
-      img: "https://bizweb.dktcdn.net/100/395/283/themes/776535/assets/slider_4.jpg?1673021351308",
-      imgMobile: "https://bizweb.dktcdn.net/100/395/283/themes/776535/assets/slider_mobile_2.jpg?1673021351308",
-      title:"img 2"
-    },
-    {
-      id: 3,
-      img: "https://bizweb.dktcdn.net/100/395/283/themes/776535/assets/slider_5.jpg?1673021351308",
-      imgMobile: "https://bizweb.dktcdn.net/100/395/283/themes/776535/assets/slider_mobile_4.jpg?1673021351308",
-      title:"img 3"
-    },
-    {
-      id: 4,
-      img: "https://bizweb.dktcdn.net/100/395/283/themes/776535/assets/slider_2.jpg?1673021351308",
-      imgMobile: "https://bizweb.dktcdn.net/100/395/283/themes/776535/assets/slider_mobile_5.jpg?1673021351308",
-      title:"img 4"
-    },
-  ],
+  sliders: []
 }
 
-const slideSlice = createSlice({
+const SlideReducer = createSlice({
   name: "slider",
   initialState,
-  reducers: {},
+  reducers: {
+    getListSlider: (state, action: PayloadAction<SliderType[]>) => {
+      state.sliders = action.payload;
+    }
+  },
 });
 
-export const slideReducer = slideSlice.reducer;
+export const { getListSlider } = SlideReducer.actions
+
+export const slideReducer = SlideReducer.reducer;
+
+// ---------- Action Call API ---------- //
+export const handleGetListSlider = () => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      const result = await http.get(`sliders`);
+      let listSlider : SliderType[] = result.data;
+      const action = getListSlider(listSlider);
+      dispatch(action);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+}
