@@ -11,7 +11,7 @@ import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import Product from "./pages/Product";
 import Detail from "./pages/Detail";
-import News from "./pages/News";
+import News from "./pages/AboutUs";
 import StoreSystem from "./pages/StoreSystem";
 import Login from "./pages/Login";
 import Register from "./pages/Register";

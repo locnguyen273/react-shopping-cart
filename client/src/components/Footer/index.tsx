@@ -17,7 +17,7 @@ const Footer = () => {
         <div className="footer__list__item">
           <Typography variant="h5">Thông tin</Typography>
           <ul>
-            <li>Tin tức</li>
+            <li>Về Chúng Tôi</li>
             <li>Sản phẩm</li>
             <li>Các cửa hàng</li>
             <li>Hướng dẫn mua hàng</li>

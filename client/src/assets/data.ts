@@ -57,7 +57,7 @@ export const popularProducts = [
 export const menuPages = [
   { label: "Trang Chủ", pathName: "/" },
   { label: "Sản Phẩm", pathName: "/product" },
-  { label: "Tin Tức", pathName: "/news" },
+  { label: "Về Chúng Tôi", pathName: "/news" },
   { label: "Hệ Thống Cửa Hàng", pathName: "/he-thong-cua-hang" },
 ];
 export const loggedInMenu = [

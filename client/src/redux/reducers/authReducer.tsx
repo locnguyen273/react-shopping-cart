@@ -84,8 +84,6 @@ export const handleRegisterUser = (user: UserInfoRegister) => {
   return async (dispatch: AppDispatch) => {
     try {
       const result = await http.post(`auth/register`, user);
-      console.log(result);
-
       if (result.status === 201) {
         toast.success("Đăng ký tài khoản thành công !");
         return { status: true, data: result.data };

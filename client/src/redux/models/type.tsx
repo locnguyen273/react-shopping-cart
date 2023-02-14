@@ -3,10 +3,11 @@ export interface ProductType {
   title: string;
   img: string;
   imgDetail: [];
-  categories: [];
+  categories: string;
   size: [];
   color: string;
   price: number;
+  selling: boolean;
   inStock: boolean;
 }
 
@@ -47,4 +48,11 @@ export interface SliderType {
   _id: string;
   title: string;
   img: string;
+}
+
+export interface AddressType {
+  _id: string;
+  locate: string;
+  image: string;
+  phoneNumber: string;
 }
