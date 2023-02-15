@@ -10,7 +10,6 @@ import "./style.scss";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Button from "@mui/material/Button";
-import { handleLoginUser } from "../../redux/reducers/authReducer";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 export default function Login() {
@@ -37,12 +36,12 @@ export default function Login() {
         .min(3, "Mật khẩu từ 3 - 16 ký tự !")
         .max(16, "Mật khẩu từ 3 - 16 ký tự !"),
     }),
-    onSubmit: (values) => {
-      dispatch(handleLoginUser(values)).then(res => {
-        if(res?.status && !res.data.isAdmin) {
-          navigate("/");
-        }
-      });
+    onSubmit: () => {
+      // dispatch(handleLoginUser(values)).then(res => {
+      //   if(res?.status && !res.data.isAdmin) {
+      //     navigate("/");
+      //   }
+      // });
     },
   });
   return (

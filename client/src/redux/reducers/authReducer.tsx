@@ -67,7 +67,11 @@ export const handleLoginUser = (user: LoginUserProps) => {
       setCookie(ID_LOGIN, result.data.isAdmin, 30);
       setStore(ID_LOGIN, result.data.isAdmin);
       if (result.status === 200) {
-        toast.success("Đăng nhập thành công !");
+        if(!result.data.data.isAdmin){
+          toast.success("Đăng nhập thành công !");
+        } else {
+          toast.warning("Bạn không có quyền truy cập trang này !");
+        }
 
         let action = loginAction(result.data.data);
         dispatch(action);
