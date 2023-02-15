@@ -9,12 +9,16 @@ const sliderRoute = require("./routes/slider");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 const stripeRoute = require("./routes/stripe");
+const addressRoute = require("./routes/address");
 const cors = require("cors");
 
 dotenv.config();
 
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("DB Connection Successful!"))
   .catch((err) => {
     console.log(err);
@@ -29,6 +33,7 @@ app.use("/api/sliders", sliderRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/api/checkout", stripeRoute);
+app.use("/api/address", addressRoute);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log("Backend server is running!");

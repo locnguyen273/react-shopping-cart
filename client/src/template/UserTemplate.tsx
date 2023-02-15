@@ -9,6 +9,8 @@ import { getListProduct } from "../redux/reducers/productReducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/configStore";
 import NewsLetter from "../components/NewsLetter";
+import { handleGetListSlider } from "../redux/reducers/sliderReducer";
+import { handleFetchListAddress } from "../redux/reducers/addressReducer";
 
 const UserTemplate = () => {
   const layoutStyle: any = {
@@ -50,7 +52,9 @@ const UserTemplate = () => {
   window.addEventListener("scroll", toggleVisible);
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
+    dispatch(handleGetListSlider());
     dispatch(getListProduct());
+    dispatch(handleFetchListAddress());
   }, []);
 
   return (

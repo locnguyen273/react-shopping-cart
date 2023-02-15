@@ -11,7 +11,7 @@ import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import Product from "./pages/Product";
 import Detail from "./pages/Detail";
-import News from "./pages/News";
+import News from "./pages/AboutUs";
 import StoreSystem from "./pages/StoreSystem";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -20,6 +20,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./template/ProtectedRoute";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

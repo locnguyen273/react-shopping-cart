@@ -16,7 +16,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
       res.status(400).json({ status: false, message: "Sản phẩm đã tồn tại không thể tạo được!" });
     } else {
       const savedProduct = await newProduct.save();
-      res.status(200).json({ status: true, savedProduct });
+      res.status(200).json({ status: true, data: savedProduct });
     }
   } catch (err) {
     res.status(500).json(err);
@@ -74,7 +74,7 @@ router.get("/", async (req, res) => {
     } else {
       products = await Product.find();
     }
-    res.status(200).json({ status: true, products, total: products.length });
+    res.status(200).json({ status: true, data: products, total: products.length });
   } catch (err) {
     res.status(500).json(err);
   }

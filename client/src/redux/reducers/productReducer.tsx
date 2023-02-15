@@ -28,8 +28,8 @@ export default ProductReducer.reducer;
 export const getListProduct = () => {
   return async (dispatch: AppDispatch) => {
     try {
-      const result = await http.get(`products/`);
-      let listProduct : ProductType[] = result.data.products;
+      const result = await http.get(`products`);
+      let listProduct : ProductType[] = result.data.data;
       const action = getAllProductsAction(listProduct);
       dispatch(action);
     } catch (err) {

@@ -33,6 +33,9 @@
       width: 450px;
       height: 450px;
       margin: 0 0 1rem 0;
+      object-fit: contain;
+      border: 1px solid lightgray;
+      padding: 10px;
     }
   }
   & .flex-active {

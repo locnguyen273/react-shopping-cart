@@ -72,7 +72,7 @@
   }
   &__center {
     height: 100%;
-    width: 40vw;
+    width: 50vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -155,7 +155,7 @@
 @media screen and (max-width: 1024px) {
   .header {
     &__left {
-      max-width: 15vw;
+      max-width: 20vw;
       & h2 {
         font-size: 1.2rem;
       }
@@ -168,13 +168,13 @@
 @media screen and (min-width: 1025px) and (max-width: 1440px) {
   .header {
     &__left {
-      max-width: 15vw;
+      max-width: 20vw;
     }
     &__center {
-      max-width: 35vw;
+      max-width: 45vw;
     }
     &__right {
-      max-width: 17vw;
+      max-width: 20vw;
     }
   }
 }
@@ -185,10 +185,10 @@
       max-width: 20vw;
     }
     &__center {
-      max-width: 45vw;
+      max-width: 40vw;
     }
     &__right {
-      max-width: 15vw;
+      max-width: 20vw;
     }
   }
 }

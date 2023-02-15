@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const CryptoJS = require("crypto-js");
 const {
   verifyToken,
   verifyTokenAndAuthorization,
@@ -18,7 +19,9 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
-      req.params.id, { $set: req.body }, { new: true }
+      req.params.id,
+      { $set: req.body },
+      { new: true }
     );
     res.status(200).json(updatedUser);
   } catch (err) {
@@ -95,12 +98,55 @@ router.get("/profile/:id", async (req, res) => {
 router.put("/profile/:id", async (req, res) => {
   try {
     const updateUser = await User.findByIdAndUpdate(
-      req.params.id, { $set: req.body }, { new: true }
+      req.params.id,
+      { $set: req.body },
+      { new: true }
     );
     const { password, __v, isAdmin, ...data } = updateUser._doc;
     res.status(200).json({ status: true, data });
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+// CHANGE PASSWORD
+router.post("/change-password", async (req, res) => {
+  try {
+    const user_id = req.body.userId;
+    const password = req.body.oldPassword;
+    const new_password = req.body.newPassword;
+    const confirm_password = req.body.confirmNewPassword;
+    const data = await User.findOne({ id: user_id });
+
+    if (data) {
+      if (password === new_password || confirm_password === password) {
+        res.status(400).send({
+          status: false,
+          message: "Mật khẩu mới không được trùng với mật khẩu cũ!",
+        });
+      } else if (confirm_password !== new_password) {
+        res.status(400).send({
+          status: false,
+          message: "Mật khẩu xác nhận phải trùng với mật khẩu mới!",
+        });
+      } else {
+        const userData = await User.findByIdAndUpdate(
+          { _id: user_id }, {
+            password: CryptoJS.AES.encrypt(
+              new_password,
+              process.env.PASS_SEC
+            ).toString(),
+        }
+        );
+        res.status(200).send({
+          status: true,
+          message: "Mật khẩu đã được cập nhật thành công!",
+        });
+      }
+    } else {
+      res.status(404).send({ status: false, message: "Mã người dùng không tìm thấy!" });
+    }
+  } catch (err) {
+    res.status(400).send(err.message);
   }
 });
 

@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import Pagination from "@mui/material/Pagination";
 import useViewport from "../../hooks/useViewPort";
 import usePagination from "../../hooks/usePagination";
+import ProductSelling from './../../components/ProductSelling/index';
 
 const ariaLabel = { "aria-label": "description" };
 
@@ -26,7 +27,7 @@ const Product = () => {
   const viewPort = useViewport();
   const isMobile = viewPort.width < 1024;
   const [selectedIndex, setSelectedIndex] = useState(1);
-  const [value, setValue] = useState([0, 8000000]);
+  const [value, setValue] = useState([0, 2000000]);
   const [filterProduct, setFilterProduct] = useState<ProductType[]>([]);
   const { listProduct } = useSelector(
     (state: RootState) => state.productReducer
@@ -160,7 +161,7 @@ const Product = () => {
                 <Slider
                   size="small"
                   value={value}
-                  max={5000000}
+                  max={2000000}
                   onChange={rangeSelector}
                   valueLabelDisplay="auto"
                 />
@@ -177,6 +178,12 @@ const Product = () => {
                   Bỏ lọc giá
                 </Button>
               </div>
+            </div>
+            <div className="product__left__selling">
+              <Typography variant="h3" className="product__left--title">
+                Bán chạy
+              </Typography>
+              <ProductSelling />
             </div>
           </div>
         )}
