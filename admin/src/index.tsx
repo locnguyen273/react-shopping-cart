@@ -14,6 +14,8 @@ import ManageProduct from "./pages/ManageProduct";
 import ManageOrder from "./pages/ManageOrder";
 import ManageUser from "./pages/ManageUser";
 import Setting from "./pages/Setting";
+import ProductDetail from "./components/ProductDetail";
+import CreateProduct from "./components/CreateProduct";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -26,6 +28,8 @@ root.render(
         <Route path="" element={<AdminLayout />}>
           <Route path="/" element={<Home />}></Route>
           <Route path="/manage-product" element={<ManageProduct />}></Route>
+          <Route path="/create-product" element={<CreateProduct />}></Route>
+          <Route path="/manage-product/:id" element={<ProductDetail />}></Route>
           <Route path="/manage-order" element={<ManageOrder />}></Route>
           <Route path="/manage-user" element={<ManageUser />}></Route>
           <Route path="/setting" element={<Setting />}></Route>
